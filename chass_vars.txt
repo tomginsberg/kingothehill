@@ -1,9 +1,0 @@
-﻿"chass_length"= 12in
-"chass_width"= 8in
-"hardboard_thickness"= 0.125in
-"side_slot_length"= "chass_length" / 27
-"back_slot_length"= "chass_width" / 17
-"motor_offset"= 1.5in
-"motor_width"= 1.3834in
-"motor_length" = 2.64in
-"motor_slot_length"="motor_length" / 7
