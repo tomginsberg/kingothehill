@@ -1,6 +1,22 @@
+#pragma once
+
 class State {
     public:
-        virtual void on_start() = 0;
-        virtual void on_loop() = 0;
-        virtual void on_end() = 0;
+        virtual void onStart() { return; }
+        virtual void onLoop()  { return; }
+        virtual void onEnd()   { return; }
+
+        virtual bool transitionCondition() {
+            return false;
+        }
+
+        virtual bool alternateCondition() {
+            return false;
+        }
+
+        virtual bool errorCondition() {
+            return false;
+        }
 };
+
+
