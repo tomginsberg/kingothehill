@@ -1,5 +1,12 @@
-#include "Arduino.h"
+#include <Arduino.h>
+#include "states/example_state.h"
 
-void setup() {}
+State* starting_state = new S_ExampleState();
 
-void loop() {}
+void setup() {
+    starting_state -> on_start();
+}
+
+void loop() {
+    starting_state -> on_loop();
+}
