@@ -1,8 +1,5 @@
-#include <phys253.h>
+#include "Arduino.h"
 
-void setup() {
-  #include <phys253setup.txt>
-  LCD.print( "Hello, TINAH!");
-}
+void setup() {}
 
 void loop() {}
