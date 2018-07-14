@@ -18,11 +18,11 @@ class S_IRSense: public State {
 
             static uint64_t samplingStart = millis();
 
-            static bool currentState = digitalRead( IR_PIN );
+            static uint8_t currentState = digitalRead( IR_PIN );
             static uint32_t numSwitches = 0;
 
             if( millis() - samplingStart < SAMPLING_TIME ) {
-                bool reading = digitalRead( IR_PIN );
+                uint8_t reading = digitalRead( IR_PIN );
                 if( currentState != reading ) {
                     numSwitches++;
                     currentState = reading;
