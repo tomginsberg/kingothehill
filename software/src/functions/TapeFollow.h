@@ -43,6 +43,6 @@ namespace TapeFollow {
             analogWrite(  LEFT_MOTOR_F, speed ); // Left Motor
         }
 
-
+        prevErr = rawError;
     }
 }
