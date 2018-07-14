@@ -3,21 +3,17 @@
 
 #define IR_PIN 2
 
-class S_IRSense: public State {
-    uint16_t currentFrequency = 0;
-    uint64_t startTime;
-    
+class S_IRSenseTest: public State {    
     public:
         void onStart() {
             pinMode( IR_PIN, INPUT_PULLUP );
-            startTime = millis();
+            Serial.begin( 9600 );
         }
 
         void onLoop() {
             static const uint16_t SAMPLING_TIME = 100;
 
             static uint64_t samplingStart = millis();
-
             static bool currentState = digitalRead( IR_PIN );
             static uint32_t numSwitches = 0;
 
@@ -28,7 +24,7 @@ class S_IRSense: public State {
                     currentState = reading;
                 } 
             } else {
-                currentFrequency = ( numSwitches * ( 1000 / 2 ) ) / SAMPLING_TIME;
+                Serial.println( ( numSwitches * ( 1000 / 2 ) ) / SAMPLING_TIME );
                 numSwitches = 0;
                 samplingStart = millis();
             }
@@ -36,17 +32,7 @@ class S_IRSense: public State {
 
         }
 
-        // <tt>TapeFollowing</tt>
-        bool transistionCondition() {
-            static const uint16_t FREQUENCY_CUTOFF = 9000;
-
-            return currentFrequency > FREQUENCY_CUTOFF;
-        }
-
-        // <tt>TapeFollowing</tt>
-        bool errorCondition() {
-            static const uint16_t MAX_WAITING_TIME = 20000;
-            
-            return millis() - startTime > MAX_WAITING_TIME;
+        void onEnd() {
+            Serial.end();
         }
 };
