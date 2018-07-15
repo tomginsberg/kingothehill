@@ -5,5 +5,5 @@ class S_Null: public State {
     void onStart() {
         RobotUtils::shutdown();
     }
-}
+};
 

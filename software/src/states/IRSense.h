@@ -36,15 +36,15 @@ class S_IRSense: public State {
 
         }
 
-        // <tt>TapeFollowing</tt>
         bool transistionCondition() {
+            // <tt>TapeFollowing<tt>
             static const uint16_t FREQUENCY_CUTOFF = 9000;
 
             return currentFrequency > FREQUENCY_CUTOFF;
         }
 
-        // <tt>TapeFollowing</tt>
         bool errorCondition() {
+            // <tt>TapeFollowing<tt>
             static const uint16_t MAX_WAITING_TIME = 20000;
             
             return millis() - startTime > MAX_WAITING_TIME;
