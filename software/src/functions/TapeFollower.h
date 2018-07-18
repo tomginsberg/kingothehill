@@ -2,10 +2,9 @@
 
 #include <Arduino.h>
 
-#define INTEGRAL_CUTOFF 150  // This number should be less that 255 (the maximum allowed error value)
+#include "../Pins.h"
 
-#define RIGHT_MOTOR_F 5
-#define  LEFT_MOTOR_F 6
+#define INTEGRAL_CUTOFF 150  // This number should be less that 255 (the maximum allowed error value)
 
 class TapeFollower {
     int8_t kp = 79;  // These are just some reasonable starting values
@@ -54,11 +53,11 @@ class TapeFollower {
             }
 
             if( motorCorrection <= 0 ) {
-                analogWrite( RIGHT_MOTOR_F, speed );  // Right Motor
-                analogWrite(  LEFT_MOTOR_F, speed + constrain( motorCorrection, -255, 0 ) ); // Left Motor
+                analogWrite( R_MOTOR_F, speed );  // Right Motor
+                analogWrite( L_MOTOR_F, speed + constrain( motorCorrection, -255, 0 ) ); // Left Motor
             } else {
-                analogWrite( RIGHT_MOTOR_F, speed - constrain( motorCorrection, 0,  255 ) ); // Right Motor
-                analogWrite(  LEFT_MOTOR_F, speed ); // Left Motor
+                analogWrite( R_MOTOR_F, speed - constrain( motorCorrection, 0,  255 ) ); // Right Motor
+                analogWrite( L_MOTOR_F, speed ); // Left Motor
             }
 
             prevErr = rawError;

@@ -1,12 +1,11 @@
 #include <Arduino.h>
 #include "../State.h"
-
-#define IR_PIN 2
+#include "../Pins.h"
 
 class S_IRSenseTest: public State {    
     public:
         void onStart() {
-            pinMode( IR_PIN, INPUT_PULLUP );
+            pinMode( IR_SENSOR, INPUT_PULLUP );
             Serial.begin( 9600 );
         }
 
@@ -14,11 +13,11 @@ class S_IRSenseTest: public State {
             static const uint16_t SAMPLING_TIME = 100;
 
             static uint64_t samplingStart = millis();
-            static uint8_t currentState = digitalRead( IR_PIN );
+            static uint8_t currentState = digitalRead( IR_SENSOR );
             static uint32_t numSwitches = 0;
 
             if( millis() - samplingStart < SAMPLING_TIME ) {
-                uint8_t reading = digitalRead( IR_PIN );
+                uint8_t reading = digitalRead( IR_SENSOR );
                 if( currentState != reading ) {
                     numSwitches++;
                     currentState = reading;

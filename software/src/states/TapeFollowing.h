@@ -5,8 +5,8 @@
 class S_TapeFollowing: public State {
     public:
         void onStart() {
-            pinMode( RIGHT_MOTOR_F, OUTPUT );
-            pinMode(  LEFT_MOTOR_F, OUTPUT );
+            pinMode( R_MOTOR_F, OUTPUT );
+            pinMode( L_MOTOR_F, OUTPUT );
         }
 
         void onLoop() {

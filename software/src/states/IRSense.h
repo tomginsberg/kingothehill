@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include "../State.h"
 
-#define IR_PIN 2
+#include "../Pins.h"
 
 class S_IRSense: public State {
     uint16_t currentFrequency = 0;
@@ -9,7 +9,7 @@ class S_IRSense: public State {
     
     public:
         void onStart() {
-            pinMode( IR_PIN, INPUT_PULLUP );
+            pinMode( IR_SENSOR, INPUT_PULLUP );
             startTime = millis();
         }
 
@@ -18,11 +18,11 @@ class S_IRSense: public State {
 
             static uint64_t samplingStart = millis();
 
-            static uint8_t currentState = digitalRead( IR_PIN );
+            static uint8_t currentState = digitalRead( IR_SENSOR );
             static uint32_t numSwitches = 0;
 
             if( millis() - samplingStart < SAMPLING_TIME ) {
-                uint8_t reading = digitalRead( IR_PIN );
+                uint8_t reading = digitalRead( IR_SENSOR );
                 if( currentState != reading ) {
                     numSwitches++;
                     currentState = reading;
