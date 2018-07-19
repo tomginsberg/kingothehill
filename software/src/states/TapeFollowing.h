@@ -1,5 +1,6 @@
 #include "../State.h"
 #include <Arduino.h>
+
 #include "../functions/TapeFollow.h"
 
 class S_TapeFollowing: public State {
@@ -19,6 +20,6 @@ class S_TapeFollowing: public State {
         }
 
         void onLoop() {
-            TapeFollow::poll( 100 );
+            TapeFollow::poll();
         }
 };
