@@ -22,7 +22,11 @@
 #define L_MAX_SPEED 200
 
 namespace TapeFollow {
+<<<<<<< HEAD
     void poll() {
+=======
+    void poll( int32_t speed ) {
+>>>>>>> a3a9912d9915c94c9e40ae0e55b48e57926a8bdc
         static double lastError = 0;
         static double errorSum = 0;
 
