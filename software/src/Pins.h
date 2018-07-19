@@ -6,14 +6,14 @@
 
 #define IR_SENSOR 2
 
-#define R_MOTOR_F 3
-#define R_MOTOR_B 5
-#define L_MOTOR_F 6
+#define L_MOTOR_F 3
+#define L_MOTOR_B 5
+#define R_MOTOR_F 6
 
 #define L_CLAW_COMM_IN 7
 #define R_CLAW_COMM_IN 8
 
-#define L_MOTOR_B 9
+#define R_MOTOR_B 9
 
 //// Analog Pins
 #define TF_EDGE_LEFT A0
