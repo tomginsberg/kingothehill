@@ -1,12 +1,14 @@
 #include "../State.h"
 #include <Arduino.h>
 #include <Stepper.h>
+#include "../Pins.h"
+
 int STEPS_PER_REV = 500;
 
 class S_BasketLifting: public State {
     public:
         void onStart() {
-            Stepper stepper = Stepper(STEPS_PER_REV,12,13);
+            Stepper stepper = Stepper( STEPS_PER_REV, STEPPER_1, STEPPER_2 );
             stepper.setSpeed(1200);
             liftBasket(stepper);
             // Do something like drive forward until a switch is triggered

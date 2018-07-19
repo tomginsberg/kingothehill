@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#include "../Pins.h"
+
 // The sum of these values must be less than 128
 #define KP_TAPE 79
 #define KD_TAPE 47
@@ -13,18 +15,15 @@
 
 #define INTEGRAL_CUTOFF 150  // This number should be less that 255 (the maximum allowed error value)
 
-#define RIGHT_MOTOR_F 5
-#define  LEFT_MOTOR_F 6
-
 namespace TapeFollow {
-    void poll( int speed ) {
-        static int8_t prevErr = 0;
+    void poll( int32_t speed ) {
+        static int16_t prevErr = 0;
         static int16_t errorSum = 0;
 
-        int16_t farLeft = analogRead( 0 );
-        int16_t closeLeft = analogRead( 1 );
-        int16_t closeRight = analogRead( 2 );
-        int16_t farRight = analogRead( 3 );
+        int16_t farLeft = analogRead( TF_FAR_LEFT );
+        int16_t closeLeft = analogRead( TF_CLOSE_LEFT );
+        int16_t closeRight = analogRead( TF_CLOSE_RIGHT );
+        int16_t farRight = analogRead( TF_FAR_RIGHT ); 
 
         int16_t rawError = ( farLeft + closeLeft - closeRight - farRight ) >> 3;  // A number between -255 & 255
 
@@ -41,13 +40,18 @@ namespace TapeFollow {
             motorCorrection = ( errorProportional + errorDifferential ) >> 8;
         }
 
+        int16_t l_speed, r_speed;
+
         if( motorCorrection <= 0 ) {
-            analogWrite( RIGHT_MOTOR_F, speed );  // Right Motor
-            analogWrite(  LEFT_MOTOR_F, speed + constrain( motorCorrection, -255, 0 ) ); // Left Motor
+            l_speed = speed * ( 255 + constrain( motorCorrection, -255, 0 ) ) / 255;
+            r_speed = speed;
         } else {
-            analogWrite( RIGHT_MOTOR_F, speed - constrain( motorCorrection, 0,  255 ) ); // Right Motor
-            analogWrite(  LEFT_MOTOR_F, speed ); // Left Motor
+            l_speed = speed;
+            r_speed = speed * ( 255 - constrain( motorCorrection, 0, 255 ) ) / 255;
         }
+
+        analogWrite( R_MOTOR_F, r_speed );
+        analogWrite( L_MOTOR_F, l_speed );
 
         prevErr = rawError;
     }
