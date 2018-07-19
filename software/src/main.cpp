@@ -1,8 +1,8 @@
-#ifndef MASTER
+#ifdef MASTER
     #include "master.h"
 #endif
 
-#ifndef SLAVE
+#ifdef SLAVE
     #include "slave.h"
 #endif
     
