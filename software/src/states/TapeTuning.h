@@ -25,7 +25,7 @@ class S_TapeTuning: public State {
     BLECharCharacteristic    kiChar{ uuidProperty3, BLERead | BLEWrite };
     BLECharCharacteristic speedChar{ uuidProperty4, BLERead | BLEWrite } ;
 
-    int8_t kp = 128;
+    int8_t kp = 127;
     int8_t kd = 0;
     int8_t ki = 0;
 
@@ -65,6 +65,7 @@ class S_TapeTuning: public State {
             BLECentral central = myBoard.central();
             
             if( central ) {
+                tf.start();
                 digitalWrite( LED, LOW );
                 while( central.connected() ) {
                     tf.poll();
@@ -86,5 +87,7 @@ class S_TapeTuning: public State {
                     }
                 }
             }
+
+            tf.stop();
         }
 };
