@@ -5,13 +5,9 @@
 #include "../Pins.h"
 
 // The sum of these values must be less than 128
-#define KP_TAPE 79
-#define KD_TAPE 47
-#define KI_TAPE 1
-
-#if( KP_TAPE + KD_TAPE + KI_TAPE > 128 )
-    #error "PID gains are too high, data structures may overflow!"
-#endif
+#define KP_TAPE 200
+#define KD_TAPE 0
+#define KI_TAPE 0
 
 #define INTEGRAL_CUTOFF 150  // This number should be less that 255 (the maximum allowed error value)
 
@@ -25,7 +21,11 @@ namespace TapeFollow {
         int16_t closeRight = analogRead( TF_CLOSE_RIGHT );
         int16_t farRight = analogRead( TF_FAR_RIGHT ); 
 
+        Serial.println( closeLeft );
+
         int16_t rawError = ( farLeft + closeLeft - closeRight - farRight ) >> 3;  // A number between -255 & 255
+
+        Serial.println( rawError );
 
         int16_t errorProportional = KP_TAPE * rawError;
         int16_t errorDifferential = KD_TAPE * ( ( rawError >> 1 ) - ( prevErr >> 1 ) );
@@ -40,7 +40,8 @@ namespace TapeFollow {
             motorCorrection = ( errorProportional + errorDifferential ) >> 8;
         }
 
-        int16_t l_speed, r_speed;
+
+        int16_t l_speed = 0, r_speed = 0;
 
         if( motorCorrection <= 0 ) {
             l_speed = speed * ( 255 + constrain( motorCorrection, -255, 0 ) ) / 255;
@@ -51,7 +52,9 @@ namespace TapeFollow {
         }
 
         analogWrite( R_MOTOR_F, r_speed );
+        digitalWrite( R_MOTOR_B, LOW );
         analogWrite( L_MOTOR_F, l_speed );
+        digitalWrite( L_MOTOR_B, LOW );
 
         prevErr = rawError;
     }
