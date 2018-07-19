@@ -5,7 +5,7 @@
 #include "../Pins.h"
 
 // The sum of these values must be less than 128
-#define KP_TAPE 200
+#define KP_TAPE 128
 #define KD_TAPE 0
 #define KI_TAPE 0
 
