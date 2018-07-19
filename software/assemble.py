@@ -7,7 +7,7 @@ def main( argv ):
             if arg == '':
                 print "Please provide the name of the state to be loaded."
             elif os.path.isfile( 'src/states/{0}.h'.format( arg ) ):
-                f = open( 'src/main.cpp', 'w' )
+                f = open( 'src/master.h', 'w' )
                 f.write( """#include <Arduino.h>
 #include "states/{0}.h"
 
@@ -44,7 +44,7 @@ void loop() {{
                 stack.append( stateDict['primary'] )
                 stack.append( stateDict['alternate'] )
                 stack.append( stateDict['error'] )
-        f = open( 'src/main.cpp', 'w' )
+        f = open( 'src/master.h', 'w' )
         assemble( f, states, state_names )
         f.close()
         sys.exit()
