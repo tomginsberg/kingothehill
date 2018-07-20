@@ -27,7 +27,14 @@
 #define WHITE 50
 
 namespace TapeFollow {
-    void poll() {
+     void scan( int dir ) {
+        switch( dir ) {
+            case FORWARDS: Motors::run( 115, 25 );
+            case BACKWARDS: Motors::run( 25, 115 );
+        }
+    }  
+    
+     void poll() {
         static double lastError = 0;
         static double errorSum = 0;
 
@@ -64,10 +71,5 @@ namespace TapeFollow {
         }
     }
 
-    void scan( int dir ) {
-        switch( dir ) {
-            case FORWARDS: Motors::run( 115, 25 );
-            case BACKWARDS: Motors::run( 25, 115 );
-        }
-    }
+
 }
