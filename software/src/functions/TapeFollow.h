@@ -6,20 +6,20 @@
 #include "../functions/Motors.h"
 
 // The sum of these values must be less than 128
-#define KP_TAPE 128
+#define KP_TAPE 2.8
 #define KD_TAPE 0
 #define KI_TAPE 0
 
 #define INTEGRAL_CUTOFF 150  // This number should be less that 255 (the maximum allowed error value)
 
-#define SETPOINT -123
+#define SETPOINT 0
 #define GAIN 1
 
-#define R_BASE_SPEED 100
-#define L_BASE_SPEED 100
+#define R_BASE_SPEED 90
+#define L_BASE_SPEED 90
 
-#define R_MAX_SPEED 200
-#define L_MAX_SPEED 200
+#define R_MAX_SPEED 220
+#define L_MAX_SPEED 220
 
 namespace TapeFollow {
     void poll() {
