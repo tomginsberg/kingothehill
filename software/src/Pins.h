@@ -26,17 +26,17 @@
 
 // Arduino Uno (Slave)
 
-#define L_CLAW_SERVO 3
+#define L_CLAW_SERVO 11
 #define R_CLAW_SERVO 5
 
-#define L_ARM_SERVO 6
-#define R_ARM_SERVO 9
+#define L_ARM_SERVO 10
+#define R_ARM_SERVO 6
 
 #define L_CLAW_COMM_OUT 7
 #define R_CLAW_COMM_OUT 8
 
-#define PLATFORM_1 10
-#define PLATFORM_2 11
+#define PLATFORM_1 3
+#define PLATFORM_2 9
 
 #define STEPPER_1 12
 #define STEPPER_2 13
