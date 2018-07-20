@@ -21,6 +21,11 @@
 #define R_MAX_SPEED 220
 #define L_MAX_SPEED 220
 
+#define FORWARDS 1
+#define BACKWARDS -1
+
+#define WHITE 50
+
 namespace TapeFollow {
     void poll() {
         static double lastError = 0;
@@ -33,21 +38,36 @@ namespace TapeFollow {
       
         double error = ( s0 + s1 - s2 - s3 ) - SETPOINT;
       
-        int motorCorrection = KP_TAPE * error + KD_TAPE * (error - lastError);
-        
-        if ( abs( error ) < INTEGRAL_CUTOFF ) {
-            errorSum += error;
-            motorCorrection += KI_TAPE * errorSum;
+        if( s0 < WHITE && s1 < WHITE ) {
+            scan( FORWARDS );
+            errorSum = 0;
+        } else if( s2 < WHITE && s3 < WHITE ) {
+            scan( BACKWARDS );
+            errorSum = 0;
+        } else {
+            int motorCorrection = KP_TAPE * error + KD_TAPE * (error - lastError);
+            
+            if ( abs( error ) < INTEGRAL_CUTOFF ) {
+                errorSum += error;
+                motorCorrection += KI_TAPE * errorSum;
+            }
+            
+            motorCorrection *= GAIN;
+            lastError = error;
+
+            int rightMotorSpeed = constrain( R_BASE_SPEED + motorCorrection, 0, R_MAX_SPEED );
+            int leftMotorSpeed  = constrain( L_BASE_SPEED - motorCorrection, 0, L_MAX_SPEED );
+            
+            Motors::run( rightMotorSpeed, leftMotorSpeed );
+
+            Serial.println( error );
         }
-        
-        motorCorrection *= GAIN;
-        lastError = error;
+    }
 
-        int rightMotorSpeed = constrain( R_BASE_SPEED + motorCorrection, 0, R_MAX_SPEED );
-        int leftMotorSpeed  = constrain( L_BASE_SPEED - motorCorrection, 0, L_MAX_SPEED );
-         
-        Motors::run( rightMotorSpeed, leftMotorSpeed );
-
-        Serial.println( error );
+    void scan( int dir ) {
+        switch( dir ) {
+            case FORWARDS: Motors::run( 115, 25 );
+            case BACKWARDS: Motors::run( 25, 115 );
+        }
     }
 }
