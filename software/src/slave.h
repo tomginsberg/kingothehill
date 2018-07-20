@@ -30,12 +30,12 @@ void setup() {
     pinMode( L_CLAW_DETECT, INPUT_PULLUP );
     pinMode( R_CLAW_DETECT, INPUT_PULLUP );
 
-    servos[0].attach( L_CLAW_SERVO );
-    servos[1].attach( R_CLAW_SERVO );
-    servos[2].attach( L_ARM_SERVO );
-    servos[3].attach( R_ARM_SERVO );
-    servos[4].attach( PLATFORM_1 );
-    servos[5].attach( PLATFORM_2 );
+    servos[L_CLAW_SERVO_ID].attach( L_CLAW_SERVO );
+    servos[R_CLAW_SERVO_ID].attach( R_CLAW_SERVO );
+    servos[L_ARM_SERVO_ID].attach( L_ARM_SERVO );
+    servos[R_ARM_SERVO_ID].attach( R_ARM_SERVO );
+    servos[PLATFORM_1_ID].attach( PLATFORM_1 );
+    servos[PLATFORM_2_ID].attach( PLATFORM_2 );
 
     Serial.begin( 9600 );
 
@@ -61,16 +61,17 @@ void loop() {
 
         Serial.readBytes( buff, 3 );
         
-        if( buff[0] < 0x06 ) {
-            uint16_t angle = ( buff[1] << 8 ) + buff[2];
-            servos[buff[0]].write( angle );
-        } else {
-            uint16_t steps = ( buff[1] << 8 ) + buff[2];
-            switch( buff[0] ) {
-                case 0x06: stepper.step( steps );
-                case 0x07: stepper.step( -steps );
-                case 0x08: break; // TODO
-            }
+        uint16_t value = ( buff[1] << 8 ) | buff[2];
+        switch( buff[0] ) {
+            case L_CLAW_SERVO_ID: servos[buff[0]].write( value );
+            case R_CLAW_SERVO_ID: servos[buff[0]].write( value );
+            case L_ARM_SERVO_ID: servos[buff[0]].write( value );
+            case R_ARM_SERVO_ID: servos[buff[0]].write( value );
+            case PLATFORM_1_ID: servos[buff[0]].write( value );
+            case PLATFORM_2_ID: servos[buff[0]].write( value );
+            case STEPPER_UP_ID: stepper.step( value );
+            case STEPPER_DOWN_ID: stepper.step( -value );
+            case STEPPER_HOME_ID: break; // TODO
         }
     }
 
