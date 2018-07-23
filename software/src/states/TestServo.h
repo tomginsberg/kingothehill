@@ -8,16 +8,22 @@ class S_TestServo: public State {
     Servo myServo;
     
     void onStart() {
-        myServo.attach( 3 );
+        myServo.attach( R_ARM_SERVO );
         Serial.begin( 9600 ); 
-        myServo.write( 0 );
+        myServo.write( 180 );
     }
 
     void onLoop()  { 
+        static bool attached = true;
         if( Serial.available() >= 1 ) {
-            uint8_t angle = Serial.read();
-            myServo.write( angle );
-            Serial.println( angle );
+            Serial.read();
+            if( attached ) {
+                myServo.detach();
+            } else {
+                myServo.attach( R_ARM_SERVO );
+            }
+            attached = !attached;
+            Serial.println( attached );
         }
     }
 };
