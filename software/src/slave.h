@@ -4,6 +4,7 @@
 #include <Servo.h>
 
 #include "Pins.h"
+#include "SerialIDs.h"
 
 #define STEPS_PER_REV 500
 #define CLAW_THRESHOLD 400 // Currently arbitrary

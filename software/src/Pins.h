@@ -42,5 +42,5 @@
 #define STEPPER_2 13
 
 //// Analog Pins
-#define L_CLAW_DETECT A0
-#define R_CLAW_DETECT A1
+#define L_CLAW_DETECT A1
+#define R_CLAW_DETECT A0
