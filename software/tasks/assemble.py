@@ -11,9 +11,12 @@ def main( argv ):
                 f.write( """#include <Arduino.h>
 #include "states/{0}.h"
 
+#include "Pins.h"
+
 State* singleState = new S_{0}();
 
 void setup() {{
+    initializePins();
     singleState -> onStart();
 }}
 
@@ -108,8 +111,10 @@ def assemble( f, dicts, names ):
     f.write( "uint8_t alternateTransitions[] = {0};\n".format( array2str( alternateIndices ) ) )
     f.write( "uint8_t errorTransitions[] = {0};\n".format( array2str( errorIndices ) ) )
     f.write( """
-    
+#include "Pins.h"
+
 void setup() {
+    initializePins();
     states[STARTING_STATE] -> onStart();
 }
 

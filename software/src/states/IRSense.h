@@ -9,7 +9,6 @@ class S_IRSense: public State {
     
     public:
         void onStart() {
-            pinMode( IR_SENSOR, INPUT_PULLUP );
             startTime = millis();
         }
 

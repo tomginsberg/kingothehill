@@ -1,11 +1,11 @@
 #include <Arduino.h>
+
 #include "../State.h"
 #include "../Pins.h"
 
-class S_IRSenseTest: public State {    
+class S_TestIRSense: public State {    
     public:
         void onStart() {
-            pinMode( IR_SENSOR, INPUT_PULLUP );
             Serial.begin( 9600 );
         }
 

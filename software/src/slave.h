@@ -13,23 +13,7 @@ Servo servos[6];
 Stepper stepper = Stepper( STEPS_PER_REV, STEPPER_1, STEPPER_2 );
 
 void setup() {
-    pinMode( L_CLAW_SERVO, OUTPUT );
-    pinMode( R_CLAW_SERVO, OUTPUT );
-
-    pinMode( L_ARM_SERVO, OUTPUT );
-    pinMode( R_ARM_SERVO, OUTPUT );
-
-    pinMode( L_CLAW_COMM_OUT, OUTPUT );
-    pinMode( R_CLAW_COMM_OUT, OUTPUT );
-
-    pinMode( PLATFORM_1, OUTPUT );
-    pinMode( PLATFORM_2, OUTPUT );
-
-    pinMode( STEPPER_1, OUTPUT );
-    pinMode( STEPPER_2, OUTPUT );
-
-    pinMode( L_CLAW_DETECT, INPUT_PULLUP );
-    pinMode( R_CLAW_DETECT, INPUT_PULLUP );
+    initializePins();
 
     servos[L_CLAW_SERVO_ID].attach( L_CLAW_SERVO );
     servos[R_CLAW_SERVO_ID].attach( R_CLAW_SERVO );
