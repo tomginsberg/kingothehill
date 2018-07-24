@@ -47,7 +47,7 @@
 
 void initializePins();
 
-#ifdef MASTER
+#ifdef _MASTER
     void initializePins() {
         pinMode( IR_SENSOR, INPUT_PULLUP );
         pinMode( L_MOTOR_F, OUTPUT );
@@ -66,7 +66,7 @@ void initializePins();
     }
 #endif
 
-#ifdef SLAVE
+#ifdef _SLAVE
     void initializePins() {
         pinMode( L_CLAW_SERVO, OUTPUT );
         pinMode( R_CLAW_SERVO, OUTPUT );
