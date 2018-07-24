@@ -60,7 +60,7 @@ def getInfo( stateName ):
         f.close()           
         patt = re.compile( "<tt>.*<tt>" )
         for i in range( len( lines ) ):
-            if " transistionCondition() " in lines[i]:
+            if " transitionCondition() " in lines[i]:
                 match = patt.search( lines[i+1] )
                 if match:
                     matchStr = match.group( 0 )
