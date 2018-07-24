@@ -4,16 +4,10 @@
 #include "../functions/TapeFollow.h"
 
 class S_TestTapeFollowing: public State {
+    TapeFollower tf;
+    
     public:
-        void onStart() {
-            Serial.begin( 9600 );
-        }
-
         void onLoop() {
-            TapeFollow::poll();
-        }
-
-        void onEnd() {
-            Serial.end();
+            tf.poll( 160 );
         }
 };
