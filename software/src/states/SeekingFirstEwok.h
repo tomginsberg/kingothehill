@@ -33,4 +33,4 @@ class S_SeekingFirstEwok: public State {
         // <tt>StopAllFunctions<tt>
         return currentTime - startTime > MAX_SEEKING_TIME;
     }
-}
+};

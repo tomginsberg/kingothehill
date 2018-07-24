@@ -12,4 +12,4 @@ class S_StopAllFunctions: public State {
         // <tt>Null<tt> 
         return false;
     }
-}
+};
