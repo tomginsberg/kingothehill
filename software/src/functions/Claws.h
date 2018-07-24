@@ -2,6 +2,7 @@
 #include <Servo.h>
 
 #include "../Pins.h"
+#include "../SerialIDs.h"
 
 class Claw {
     public:

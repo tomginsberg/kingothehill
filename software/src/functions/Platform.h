@@ -6,12 +6,17 @@
 
 class Platform {
     public:
+        virtual void init() = 0;
         virtual void release() = 0;
         virtual void drop() = 0;
 };
 
 class FirstPlatform: public Platform {
      public:
+        void init() {
+            Serial.begin( 9600 );
+        };
+
          void release() {
             uint16_t angle = 150;
             Serial.write( PLATFORM_1_ID );
@@ -29,6 +34,10 @@ class FirstPlatform: public Platform {
 
 class SecondPlatform: public Platform {
     public: 
+        void init() {
+            Serial.begin( 9600 );
+        };
+
         void release() {
             uint16_t angle = 45;
             Serial.write( PLATFORM_1_ID );
