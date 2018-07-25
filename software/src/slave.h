@@ -15,13 +15,6 @@ Stepper stepper = Stepper( STEPS_PER_REV, STEPPER_1, STEPPER_2 );
 void setup() {
     initializePins();
 
-    servos[L_CLAW_SERVO_ID].attach( L_CLAW_SERVO );
-    servos[R_CLAW_SERVO_ID].attach( R_CLAW_SERVO );
-    servos[L_ARM_SERVO_ID].attach( L_ARM_SERVO );
-    servos[R_ARM_SERVO_ID].attach( R_ARM_SERVO );
-    servos[PLATFORM_1_ID].attach( PLATFORM_1 );
-    servos[PLATFORM_2_ID].attach( PLATFORM_2 );
-
     Serial.begin( 9600 );
 
     stepper.setSpeed( 1200 );    
@@ -48,14 +41,42 @@ void loop() {
         
         uint16_t value = ( buff[1] << 8 ) | buff[2];
         switch( buff[0] ) {
-            case L_CLAW_SERVO_ID: servos[buff[0]].write( value );
-            case R_CLAW_SERVO_ID: servos[buff[0]].write( value );
-            case L_ARM_SERVO_ID: servos[buff[0]].write( value );
-            case R_ARM_SERVO_ID: servos[buff[0]].write( value );
-            case PLATFORM_1_ID: servos[buff[0]].write( value );
-            case PLATFORM_2_ID: servos[buff[0]].write( value );
-            case STEPPER_UP_ID: stepper.step( value );
-            case STEPPER_DOWN_ID: stepper.step( -value );
+            case L_CLAW_SERVO_ID: {
+                servos[buff[0]].attach( L_CLAW_SERVO );
+                servos[buff[0]].write( value );              
+                break;
+            }
+            case R_CLAW_SERVO_ID: {
+                servos[buff[0]].attach( R_CLAW_SERVO );
+                servos[buff[0]].write( value );              
+                break;
+            }
+            case L_ARM_SERVO_ID: {
+                servos[buff[0]].attach( L_ARM_SERVO );
+                servos[buff[0]].write( value );               
+                break;
+            }
+            case R_ARM_SERVO_ID: {
+                servos[buff[0]].attach( R_ARM_SERVO );
+                servos[buff[0]].write( value );              
+                break;
+            }
+            case PLATFORM_1_ID: {
+                servos[buff[0]].write( value );
+                break;
+            }
+            case PLATFORM_2_ID: {
+                servos[buff[0]].write( value );
+                break;
+            }
+            case STEPPER_UP_ID: {
+                stepper.step( value );
+                break;
+            }
+            case STEPPER_DOWN_ID: {
+                stepper.step( -value );
+                break;
+            }
             case STEPPER_HOME_ID: break; // TODO
         }
     }
