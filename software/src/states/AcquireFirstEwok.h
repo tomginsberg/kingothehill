@@ -5,24 +5,30 @@
 #include "../functions/Claws.h"
 
 class S_AcquireFirstEwok: public State {
-    RightClaw right;
-    
     void onStart() { 
         Motors::stop();
-        right.init();
+        Serial.begin( 9600 );
 
-        right.closeClaw();
-        delay( 200 );
-        right.liftUp();
+        Serial.write( INIT_R_CLAW );
+        
+        delay( 500 );
+        Serial.write( CLOSE_R_CLAW );
         delay( 1000 );
-        right.openClaw();
-        delay( 200 );
-        right.liftDown();
+        Serial.write( LIFT_R_CLAW );
+        delay( 1500 );
+        Serial.write( OPEN_R_CLAW );
+        delay( 1000 );
+        Serial.write( LOWER_R_CLAW );
+        delay( 400 );
+    }
+
+    void onEnd() {
+        Serial.write( DETACH_R_CLAW );
     }
 
 
-    bool alternateCondition() {
-        // <tt>StopAllFunctions<tt>
+    bool transitionCondition() {
+        // <tt>FindingFirstGap<tt>
         return true;
     }
 };

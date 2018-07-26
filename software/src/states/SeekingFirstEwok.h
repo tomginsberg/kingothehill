@@ -15,7 +15,7 @@ class S_SeekingFirstEwok: public State {
 
     void onLoop() { 
         static uint16_t count = 0; 
-        tf.poll( 120 ); 
+        tf.poll( 150 ); 
 
         if( count % MILLIS_FREQ == 0 ) {
             currentTime = millis();
@@ -31,6 +31,6 @@ class S_SeekingFirstEwok: public State {
 
     bool errorCondition() {
         // <tt>StopAllFunctions<tt>
-        return currentTime - startTime > MAX_SEEKING_TIME;
+        return false; // currentTime - startTime > MAX_SEEKING_TIME;
     }
 };

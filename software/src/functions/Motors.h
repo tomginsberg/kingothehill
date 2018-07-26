@@ -3,6 +3,9 @@
 #include <Arduino.h>
 #include "../Pins.h"
 
+#define CLOCKWISE 1
+#define C_CLOCKWISE 0
+
 namespace Motors {
     void run( int rs, int ls ) {
         if ( ls > 0 ) {
@@ -31,5 +34,13 @@ namespace Motors {
         digitalWrite( R_MOTOR_F, LOW );
         digitalWrite( L_MOTOR_B, LOW );
         digitalWrite( R_MOTOR_B, LOW );        
+    }
+
+    void pivot( uint8_t speed, uint8_t direction ) {
+        if( direction ) {
+            run( -speed, speed );
+        } else {
+            run( speed, -speed );
+        }
     }
 };

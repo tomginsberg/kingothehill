@@ -1,54 +1,64 @@
 #pragma once
 
 #include <Arduino.h>
+#include <Servo.h>
 
 #include "../SerialIDs.h"
+#include "../Pins.h"
+
 
 class Platform {
     public:
         virtual void init() = 0;
         virtual void release() = 0;
         virtual void drop() = 0;
+        virtual void detach() = 0;
 };
 
 class FirstPlatform: public Platform {
+     Servo releaser;
+     Servo dropper;
+     
      public:
         void init() {
-            Serial.begin( 9600 );
-        };
-
-         void release() {
-            uint16_t angle = 150;
-            Serial.write( PLATFORM_1_ID );
-            Serial.write( ( uint8_t ) ( angle << 8 ) );
-            Serial.write( ( uint8_t ) ( angle & 0xFF ) );  
-        };
-
-         void drop() {
-            uint16_t angle = 0;
-            Serial.write( PLATFORM_2_ID );
-            Serial.write( ( uint8_t ) ( angle << 8 ) );
-            Serial.write( ( uint8_t ) ( angle & 0xFF ) );
-        };
-};
-
-class SecondPlatform: public Platform {
-    public: 
-        void init() {
-            Serial.begin( 9600 );
+            releaser.attach( PLATFORM_1 );
+            dropper.attach( PLATFORM_2 );
         };
 
         void release() {
-            uint16_t angle = 45;
-            Serial.write( PLATFORM_1_ID );
-            Serial.write( ( uint8_t ) ( angle << 8 ) );
-            Serial.write( ( uint8_t ) ( angle & 0xFF ) );  
+            releaser.write( 150 );
         };
 
         void drop() {
-            uint16_t angle = 180;
-            Serial.write( PLATFORM_2_ID );
-            Serial.write( ( uint8_t ) ( angle << 8 ) );
-            Serial.write( ( uint8_t ) ( angle & 0xFF ) );
+            dropper.write( 0 );
         };
+
+        void detach() {
+            releaser.detach();
+            dropper.detach();
+        }
+};
+
+class SecondPlatform: public Platform {
+    Servo releaser;
+    Servo dropper;
+
+    public:
+        void init() {
+            releaser.attach( PLATFORM_1 );
+            dropper.attach( PLATFORM_2 );
+        };
+
+        void release() {
+            releaser.write( 45 );
+        };
+
+        void drop() {
+            dropper.write( 180 );
+        };
+
+        void detach() {
+            releaser.detach();
+            dropper.detach();
+        }
 };

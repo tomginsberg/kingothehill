@@ -13,74 +13,69 @@ class Claw {
         virtual void liftDown() = 0;
         virtual void openClaw() = 0;
         virtual void closeClaw() = 0;
+        virtual void detach() = 0;
 };
 
 class LeftClaw: public Claw {
+    Servo claw;
+    Servo arm;
+    
     public:
         void init() {
-            Serial.begin( 9600 ); 
+            claw.attach( L_CLAW_SERVO );
+            arm.attach( L_ARM_SERVO );
         }
 
         void liftUp() {
-            Serial.write( L_ARM_SERVO_ID );
-            uint16_t angle = 0;
-            Serial.write( (uint8_t) (angle >> 8) );
-            Serial.write( (uint8_t) (angle & 0xFF)  );
+            arm.write( 0 );
         }
 
         void liftDown() {
-            Serial.write( L_ARM_SERVO_ID );
-            uint16_t angle = 180;
-            Serial.write( (uint8_t) (angle >> 8) );
-            Serial.write( (uint8_t) (angle & 0xFF)  );
+            arm.write( 180 );
         }
 
         void openClaw() {
-            Serial.write( L_CLAW_SERVO_ID );
-            uint16_t angle = 113;
-            Serial.write( (uint8_t) (angle >> 8) );
-            Serial.write( (uint8_t) (angle & 0xFF)  );
+            claw.write( 83 );
         }
 
         void closeClaw() {
-            Serial.write( L_CLAW_SERVO_ID );
-            uint16_t angle = 180;
-            Serial.write( (uint8_t) (angle >> 8) );
-            Serial.write( (uint8_t) (angle & 0xFF)  );
+            claw.write( 180 );
+        }
+
+        void detach() {
+            arm.detach();
+            claw.detach();
         }
 };
 
 class RightClaw: public Claw {
+    Servo claw;
+    Servo arm;
+    
     public:
         void init() {
-            Serial.begin( 9600 ); 
+            claw.attach( R_CLAW_SERVO );
+            arm.attach( R_ARM_SERVO );
         }
 
         void liftUp() {
-            Serial.write( R_ARM_SERVO_ID );
-            uint16_t angle = 180;
-            Serial.write( (uint8_t) (angle >> 8) );
-            Serial.write( (uint8_t) (angle & 0xFF)  );
+            arm.write( 180 );
         }
 
         void liftDown() {
-            Serial.write( R_ARM_SERVO_ID );
-            uint16_t angle = 0;
-            Serial.write( (uint8_t) (angle >> 8) );
-            Serial.write( (uint8_t) (angle & 0xFF)  );
+            arm.write( 0 );
         }
 
         void openClaw() {
-            Serial.write( R_CLAW_SERVO_ID );
-            uint16_t angle = 67;
-            Serial.write( (uint8_t) (angle >> 8) );
-            Serial.write( (uint8_t) (angle & 0xFF)  );
+            claw.write( 180 );
         }
 
         void closeClaw() {
-            Serial.write( R_CLAW_SERVO_ID );
-            uint16_t angle = 0;
-            Serial.write( (uint8_t) (angle >> 8) );
-            Serial.write( (uint8_t) (angle & 0xFF)  );
+            claw.write( 83 );
+        }
+
+        void detach() {
+            arm.detach();
+            claw.detach();
         }
 };

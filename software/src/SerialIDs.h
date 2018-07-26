@@ -1,11 +1,18 @@
-// The servo IDs must have the values 0-5
-
-#define L_CLAW_SERVO_ID 0x00
-#define R_CLAW_SERVO_ID 0x01
-#define L_ARM_SERVO_ID 0x02
-#define R_ARM_SERVO_ID 0x03
-#define PLATFORM_1_ID 0x04
-#define PLATFORM_2_ID 0x05
-#define STEPPER_UP_ID 0x06
-#define STEPPER_DOWN_ID 0x07
-#define STEPPER_HOME_ID 0x08
+#define INIT_L_CLAW 0x00
+#define OPEN_L_CLAW 0x01
+#define CLOSE_L_CLAW 0x02
+#define LIFT_L_CLAW 0x03
+#define LOWER_L_CLAW 0x04
+#define DETACH_L_CLAW 0x05
+#define INIT_R_CLAW 0x06
+#define OPEN_R_CLAW 0x07
+#define CLOSE_R_CLAW 0x08
+#define LIFT_R_CLAW 0x09
+#define LOWER_R_CLAW 0x0A
+#define DETACH_R_CLAW 0x0B
+#define INIT_PLATFORMS 0x0C
+#define RELEASE_PLATFORM_1 0x0D
+#define DROP_PLATFORM_1 0x0E
+#define RELEASE_PLATFORM_2 0x0F
+#define DROP_PLATFORM_2 0x10
+#define DETACH_PLATFORMS 0x11

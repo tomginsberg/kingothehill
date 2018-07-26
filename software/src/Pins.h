@@ -16,8 +16,8 @@
 #define R_MOTOR_B 10
 
 //// Analog Pins
-#define TF_EDGE_LEFT A0
-#define TF_EDGE_RIGHT A1
+#define TF_EDGE_LEFT A1
+#define TF_EDGE_RIGHT A0
 #define TF_FAR_LEFT A2
 #define TF_CLOSE_LEFT A3
 #define TF_CLOSE_RIGHT A4
@@ -42,12 +42,12 @@
 #define STEPPER_2 13
 
 //// Analog Pins
-#define L_CLAW_DETECT A1
-#define R_CLAW_DETECT A0
+#define L_CLAW_DETECT A0
+#define R_CLAW_DETECT A1
 
 void initializePins();
 
-#ifdef _MASTER
+#ifdef _MASTER_
     void initializePins() {
         pinMode( IR_SENSOR, INPUT_PULLUP );
         pinMode( L_MOTOR_F, OUTPUT );
@@ -66,7 +66,7 @@ void initializePins();
     }
 #endif
 
-#ifdef _SLAVE
+#ifdef _SLAVE_
     void initializePins() {
         pinMode( L_CLAW_SERVO, OUTPUT );
         pinMode( R_CLAW_SERVO, OUTPUT );

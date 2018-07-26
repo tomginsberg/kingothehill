@@ -19,6 +19,6 @@ class S_{1}: public State {
 
     bool errorCondition() {
         // <tt>TransistionTargetHere<tt>
-        return false
+        return false;
     }
-}
+};

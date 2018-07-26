@@ -5,89 +5,122 @@
 
 #include "Pins.h"
 #include "SerialIDs.h"
+#include "functions/Claws.h"
+#include "functions/Platform.h"
 
 #define STEPS_PER_REV 500
-#define CLAW_THRESHOLD 400 // Currently arbitrary
 
-Servo servos[6];
 Stepper stepper = Stepper( STEPS_PER_REV, STEPPER_1, STEPPER_2 );
+
+LeftClaw left;
+RightClaw right;
+
+FirstPlatform first;
+SecondPlatform second;
+
+uint16_t CLAW_THRESHOLD_L;
+uint16_t CLAW_THRESHOLD_R;
 
 void setup() {
     initializePins();
 
     Serial.begin( 9600 );
 
-    stepper.setSpeed( 1200 );    
+    stepper.setSpeed( 1200 );  
+
+    CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 7;  
+    CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 7;  
 }
 
 void loop() {
-    if( Serial.available() >= 3 ) {
-        // At each write, the slave expects 3 bytes with the following protocol
-        // 1 - TargetID ( Left Claw Servo = 0x00 )
-        //              ( Right Claw Servo = 0x01 )
-        //              ( Left Arm Servo = 0x02 )
-        //              ( Right Arm Servo = 0x03 )
-        //              ( First Platform Servo = 0x04 )
-        //              ( Second Platform Servo = 0x05 )
-        //              ( Stepper {Advancing Upwards} = 0x06 )
-        //              ( Stepper {Advancing Downwards} = 0x07 )
-        //              ( Stepper {Find Home} = 0x08 )
-        // 
-        // 23 - TargetValue ( An unsigned 2 byte integer representing an angle or a number of steps ) 
-        
-        uint8_t buff[3];
+    if( Serial.available() >= 1 ) {
+        uint8_t action = Serial.read();
 
-        Serial.readBytes( buff, 3 );
-        
-        uint16_t value = ( buff[1] << 8 ) | buff[2];
-        switch( buff[0] ) {
-            case L_CLAW_SERVO_ID: {
-                servos[buff[0]].attach( L_CLAW_SERVO );
-                servos[buff[0]].write( value );              
+        switch( action ) {
+            case INIT_L_CLAW: {
+                left.init();              
                 break;
             }
-            case R_CLAW_SERVO_ID: {
-                servos[buff[0]].attach( R_CLAW_SERVO );
-                servos[buff[0]].write( value );              
+            case OPEN_L_CLAW: {
+                left.openClaw();             
                 break;
             }
-            case L_ARM_SERVO_ID: {
-                servos[buff[0]].attach( L_ARM_SERVO );
-                servos[buff[0]].write( value );               
+            case CLOSE_L_CLAW: {
+                left.closeClaw();               
                 break;
             }
-            case R_ARM_SERVO_ID: {
-                servos[buff[0]].attach( R_ARM_SERVO );
-                servos[buff[0]].write( value );              
+            case LIFT_L_CLAW: {
+                left.liftUp();             
                 break;
             }
-            case PLATFORM_1_ID: {
-                servos[buff[0]].write( value );
+            case LOWER_L_CLAW: {
+                left.liftDown();
                 break;
             }
-            case PLATFORM_2_ID: {
-                servos[buff[0]].write( value );
+            case DETACH_L_CLAW: {
+                left.detach();
                 break;
             }
-            case STEPPER_UP_ID: {
-                stepper.step( value );
+
+            case INIT_R_CLAW: {
+                right.init();              
                 break;
             }
-            case STEPPER_DOWN_ID: {
-                stepper.step( -value );
+            case OPEN_R_CLAW: {
+                right.openClaw();             
                 break;
             }
-            case STEPPER_HOME_ID: break; // TODO
+            case CLOSE_R_CLAW: {
+                right.closeClaw();               
+                break;
+            }
+            case LIFT_R_CLAW: {
+                right.liftUp();             
+                break;
+            }
+            case LOWER_R_CLAW: {
+                right.liftDown();
+                break;
+            }
+            case DETACH_R_CLAW: {
+                right.detach();
+                break;
+            }
+
+            case INIT_PLATFORMS: {
+                first.init();
+                break;
+            }
+            case RELEASE_PLATFORM_1: {
+                first.release();
+                break;
+            }
+            case DROP_PLATFORM_1: {
+                first.drop();
+                break;
+            }
+            case RELEASE_PLATFORM_2: {
+                second.release();
+                break;
+            }
+            case DROP_PLATFORM_2: {
+                second.drop();
+                break;
+            }
+            case DETACH_PLATFORMS: {
+                first.detach();
+                break;
+            }
         }
     }
 
-    if( analogRead( L_CLAW_DETECT ) > CLAW_THRESHOLD ) {
+    if( analogRead( L_CLAW_DETECT ) > CLAW_THRESHOLD_L ) {
         digitalWrite( L_CLAW_COMM_OUT, HIGH );
     } else {
         digitalWrite( L_CLAW_COMM_OUT, LOW  );
     }
     
-    if( analogRead( R_CLAW_DETECT ) > CLAW_THRESHOLD ) {
+    if( analogRead( R_CLAW_DETECT ) > CLAW_THRESHOLD_R ) {
         digitalWrite( R_CLAW_COMM_OUT, HIGH );
     } else {
         digitalWrite( R_CLAW_COMM_OUT, LOW  );
