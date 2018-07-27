@@ -13,7 +13,7 @@ class S_FindingFirstGap: public State {
 
         //rotate clockwise
         Motors::pivot(80,CLOCKWISE);
-        delay(550);
+        delay(350);
 
         //go forward for a bit 
         Motors::run(60,60);

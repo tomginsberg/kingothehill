@@ -6,11 +6,11 @@
 #include "Motors.h"
 
 #define KP_EDGE ((float) 0.6)
-#define KD_EDGE ((float) 0.6)
+#define KD_EDGE ((float) 0.7)
 
 #define EDGE_SETPOINT 650
 
-#define MAX_SPEED_EDGE 255
+#define MAX_SPEED_EDGE 130
 
 class EdgeFollower {
     int16_t error = 0;

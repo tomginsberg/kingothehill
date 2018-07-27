@@ -9,7 +9,7 @@ class S_PositionForDrop: public State {
     TapeFollower tf;
     
     void onStart() { 
-        Motors::run(-70,-70);
+        Motors::run(-70,-50);
         delay(700);
     }
 
