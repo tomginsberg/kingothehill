@@ -9,7 +9,7 @@ class S_SeekingFirstEwok: public State {
     TapeFollower tf;
 
     void onLoop() { 
-        tf.poll( 150 ); 
+        tf.poll( 110 ); 
     }
 
     void onEnd() {

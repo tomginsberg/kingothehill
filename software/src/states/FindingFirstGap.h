@@ -8,17 +8,19 @@
 class S_FindingFirstGap: public State {
     void onStart() {
         //back up
-        Motors::run(-50,-50);
-        delay(550);
+        Motors::run(-70,-70);
+        delay(850);
 
         //rotate clockwise
         Motors::pivot(80,CLOCKWISE);
-        delay(250);
+        delay(550);
 
         //go forward for a bit 
-        Motors::run(90,90);
-        delay()
+        Motors::run(60,60);
+        delay(950);
 
+        //sweep left
+        Motors::run(90,-40);
     }
 
     void onEnd() { 
@@ -28,6 +30,6 @@ class S_FindingFirstGap: public State {
 
     bool transitionCondition() {
         // <tt>PositionForDrop<tt> 
-        return analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_BASELINE + LEFT_EDGE_THR;
+        return analogRead( TF_FAR_LEFT ) > 150;
     }
 };

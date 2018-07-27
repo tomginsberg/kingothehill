@@ -27,7 +27,7 @@ class S_AcquireFirstEwok: public State {
 
 
     bool transitionCondition() {
-        // <tt>PositionForDrop<tt>
+        // <tt>FindingFirstGap<tt>
         return true;
     }
 };
