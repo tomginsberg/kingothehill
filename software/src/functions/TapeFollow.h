@@ -5,31 +5,29 @@
 #include "../Pins.h"
 #include "Motors.h"
 
-#define KP_TAPE ((float) 2.1)
-#define KD_TAPE ((float) 1.7)
+#define KP_TAPE ((float) 1.5)
+#define KD_TAPE ((float) 0.6)
 #define KI_TAPE ((float) 0.01)
-
-#define INTEGRAL_CUTOFF 150
 
 #define SETPOINT 0
 #define GAIN 1
 
-#define MAX_SPEED 255
+#define MAX_SPEED 150
 
 #define TIME_DELAY 8
 
-#define DMAX 20
-#define EMAX 40
+#define DMAX 10
+#define EMAX 60
 #define IMAX 50
 
-#define DEADBAND 15
+#define DEADBAND 40
 
 class TapeFollower {  
     void scan( int dir ) {
         if( dir < 0 ) {
-            Motors::run( 115, 25 );
+            Motors::run( 95, 15 );
         } else if( dir > 0 ) {
-            Motors::run( 25, 115 );
+            Motors::run( 15, 95 );
         }
     }
 
@@ -79,7 +77,7 @@ class TapeFollower {
                     lastSpeed[0] = rightMotorSpeed;
                     lastSpeed[1] = leftMotorSpeed;
                     
-                    Motors::run( rightMotorSpeed, leftMotorSpeed );
+                    Motors::run( rightMotorSpeed, leftMotorSpeed+3 );
                 }
 
                 lastWriteTime = millis();

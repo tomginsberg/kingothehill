@@ -3,7 +3,7 @@
 #include "../State.h"
 #include "../functions/TapeFollow.h"
 
-#define RAMP_SPEED 170
+#define RAMP_SPEED 100
 
 class S_GoingUpRamp: public State {
     TapeFollower tf;

@@ -10,6 +10,7 @@
 class Platform {
     public:
         virtual void init() = 0;
+        virtual void attach() = 0;
         virtual void release() = 0;
         virtual void drop() = 0;
         virtual void detach() = 0;
@@ -21,12 +22,18 @@ class FirstPlatform: public Platform {
      
      public:
         void init() {
+            attach();
+            releaser.write( 0 );
+            dropper.write( 85 );
+        }
+
+        void attach() {
             releaser.attach( PLATFORM_1 );
             dropper.attach( PLATFORM_2 );
         };
 
         void release() {
-            releaser.write( 150 );
+            releaser.write( 160 );
         };
 
         void drop() {
@@ -45,6 +52,11 @@ class SecondPlatform: public Platform {
 
     public:
         void init() {
+            releaser.write( 150 );
+            dropper.write( 0 );
+        }
+
+        void attach() {
             releaser.attach( PLATFORM_1 );
             dropper.attach( PLATFORM_2 );
         };

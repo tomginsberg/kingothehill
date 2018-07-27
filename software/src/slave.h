@@ -28,8 +28,22 @@ void setup() {
 
     stepper.setSpeed( 1200 );  
 
-    CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 7;  
-    CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 7;  
+    delay( 1000 );
+    
+    digitalWrite( RESET_CONTROL, HIGH );
+     uint32_t rightAvg = 0;
+    uint32_t leftAvg = 0;
+
+    for( int i = 0; i < 50; i++ ) {
+        rightAvg += analogRead( R_CLAW_DETECT );
+        leftAvg += analogRead( L_CLAW_DETECT );
+    }
+
+    rightAvg /= 50;
+    leftAvg /= 50;
+
+    CLAW_THRESHOLD_L = leftAvg + 100;  
+    CLAW_THRESHOLD_R = rightAvg + 100;
 }
 
 void loop() {
@@ -110,6 +124,9 @@ void loop() {
             case DETACH_PLATFORMS: {
                 first.detach();
                 break;
+            }
+            case ATTACH_PLATFORMS: {
+                first.attach();
             }
         }
     }

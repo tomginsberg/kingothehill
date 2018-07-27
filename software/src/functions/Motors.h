@@ -35,6 +35,11 @@ namespace Motors {
         digitalWrite( L_MOTOR_B, LOW );
         digitalWrite( R_MOTOR_B, LOW );        
     }
+    void hardStop(){
+        Motors::run(-200,-200);
+        delay(10);
+        Motors::stop();
+    }
 
     void pivot( uint8_t speed, uint8_t direction ) {
         if( direction ) {

@@ -4,7 +4,7 @@
 
 // Arduino Uno (Master)
 
-#define IR_SENSOR 2
+#define IR_SENSOR 6
 
 #define L_MOTOR_F 5
 #define L_MOTOR_B 3
@@ -40,6 +40,8 @@
 
 #define STEPPER_1 12
 #define STEPPER_2 13
+
+#define RESET_CONTROL 2
 
 //// Analog Pins
 #define L_CLAW_DETECT A0
@@ -81,5 +83,6 @@ void initializePins();
 
         pinMode( L_CLAW_DETECT, INPUT_PULLUP );
         pinMode( R_CLAW_DETECT, INPUT_PULLUP );
+        pinMode( RESET_CONTROL, OUTPUT);
     }
 #endif
