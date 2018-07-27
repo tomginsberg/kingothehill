@@ -42,8 +42,8 @@ void setup() {
     rightAvg /= 50;
     leftAvg /= 50;
 
-    CLAW_THRESHOLD_L = leftAvg + 30;  
-    CLAW_THRESHOLD_R = rightAvg + 30;
+    CLAW_THRESHOLD_L = leftAvg + 10;  
+    CLAW_THRESHOLD_R = rightAvg + 10;
 }
 
 void loop() {
