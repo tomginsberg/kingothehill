@@ -3,6 +3,8 @@
 #include "../State.h"
 #include "../functions/Motors.h"
 
+#include "../SerialIDs.h"
+
 class S_AcquireFirstEwok: public State {
     void onStart() { 
         Serial.begin( 9600 );

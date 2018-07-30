@@ -6,27 +6,41 @@
 #define CLOCKWISE 1
 #define C_CLOCKWISE 0
 
+#define FORWARDS 1
+#define BACKWARDS 0
+
 namespace Motors {
-    void run( int rs, int ls ) {
-        if ( ls > 0 ) {
+    void run( int16_t rightSpeed, int16_t leftSpeed ) {
+        static uint8_t lastLeftDir = 0;
+        static uint8_t lastRightDir = 0;
+        
+        if ( leftSpeed > 0 ) {
             digitalWrite( L_MOTOR_B, 0 );
-            delay( 5 );
-            analogWrite( L_MOTOR_F, ls );
+            delayMicroseconds( lastLeftDir == FORWARDS ? 0 : 50 );
+            analogWrite( L_MOTOR_F, leftSpeed );
+            lastLeftDir = FORWARDS;
         } else {
             digitalWrite( L_MOTOR_F, 0 );
-            delay( 5 );
-            analogWrite( L_MOTOR_B, -ls );
+            delayMicroseconds( lastLeftDir == BACKWARDS ? 0 : 50 );
+            analogWrite( L_MOTOR_B, -leftSpeed );
+            lastLeftDir = BACKWARDS;
         }
         
-        if ( rs > 0 ){
+        if ( rightSpeed > 0 ) {
             digitalWrite( R_MOTOR_B, 0 );
-            delay( 5 );
-            analogWrite( R_MOTOR_F, rs );
+            delayMicroseconds( lastRightDir == FORWARDS ? 0 : 50 );
+            analogWrite( R_MOTOR_F, rightSpeed );
+            lastRightDir = FORWARDS;
         } else {
             digitalWrite( R_MOTOR_F, 0 );
-            delay( 5 );
-            analogWrite( R_MOTOR_B, -rs );
+            delayMicroseconds( lastRightDir == BACKWARDS ? 0 : 50 );
+            analogWrite( R_MOTOR_B, -rightSpeed );
+            lastRightDir = BACKWARDS;
         }
+    }
+
+    void run( int16_t speed ) {
+        run( speed, speed );
     }
 
     void stop() {
@@ -35,13 +49,14 @@ namespace Motors {
         digitalWrite( L_MOTOR_B, LOW );
         digitalWrite( R_MOTOR_B, LOW );        
     }
+
     void hardStop(){
-        Motors::run(-200,-200);
-        delay(10);
-        Motors::stop();
+        run( -200 );
+        delay( 10 );
+        stop();
     }
 
-    void pivot( uint8_t speed, uint8_t direction ) {
+    void pivot( int16_t speed, uint8_t direction ) {
         if( direction ) {
             run( -speed, speed );
         } else {
