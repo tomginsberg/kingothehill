@@ -32,8 +32,8 @@ void setup() {
     
     digitalWrite( RESET_CONTROL, HIGH );
 
-    CLAW_THRESHOLD_L = 200;  
-    CLAW_THRESHOLD_R = 200;
+    CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 70;  
+    CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 70;
 }
 
 void loop() {

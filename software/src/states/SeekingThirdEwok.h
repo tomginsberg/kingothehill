@@ -41,6 +41,6 @@ class S_SeekingThirdEwok: public State {
 
     bool transitionCondition() {
         // <tt>AcquireThirdEwok<tt>
-        return digitalRead( L_CLAW_COMM_IN );
+        return droppedClaw && digitalRead( L_CLAW_COMM_IN );
     }
 };

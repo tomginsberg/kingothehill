@@ -16,7 +16,7 @@ class S_SeekingSecondEwok: public State {
     }
 
     void onLoop()  { 
-        tf.poll( 100 ); 
+        tf.poll( 150 ); 
     }
 
     void onEnd() {

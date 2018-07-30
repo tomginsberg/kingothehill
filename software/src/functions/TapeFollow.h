@@ -5,14 +5,11 @@
 #include "../Pins.h"
 #include "Motors.h"
 
-// #define KP_TAPE ((float) 1.5)
-// #define KD_TAPE ((float) 0.6)
-// #define KI_TAPE ((float) 0.01)
-#define KP_TAPE ((float) 0.07)
-#define KD_TAPE ((float) 0)
-#define KI_TAPE ((float) 0)
+#define KP_TAPE ((float) 0.16)
+#define KD_TAPE ((float) 0.0005)
+#define KI_TAPE ((float) 0.001)
 
-#define SETPOINT 100
+#define SETPOINT 0
 #define GAIN 1
 
 #define MAX_SPEED 255

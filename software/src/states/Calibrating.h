@@ -13,6 +13,7 @@ class S_Calibrating: public State {
         Serial.write( INIT_R_CLAW );
         Serial.write( OPEN_R_CLAW );
         Serial.write( LIFT_R_CLAW );
+        Serial.write( LOWER_R_CLAW );
         delay( 400 );
         Serial.write( DETACH_R_CLAW );
 
@@ -28,7 +29,7 @@ class S_Calibrating: public State {
     }
 
     bool transitionCondition() {
-        // <tt>ClimbingBridge<tt> 
+        // <tt>SeekingFirstEwok<tt> 
         return true;
     }
 

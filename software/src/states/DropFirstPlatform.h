@@ -2,7 +2,7 @@
 
 #include "../State.h"
 #include "../SerialIDs.h"
-
+#include "../functions/Motors.h"
 
 class S_DropFirstPlatform: public State {
     void onStart() { 
@@ -20,6 +20,9 @@ class S_DropFirstPlatform: public State {
         Serial.write( DETACH_PLATFORMS );
         Serial.flush();
         Serial.end();
+        Motors::run( -130 );
+        delay( 300 );
+        Motors::stop();
     }
 
     bool transitionCondition() {

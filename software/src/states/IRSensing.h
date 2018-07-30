@@ -4,7 +4,7 @@
 #include "../Pins.h"
 
 class S_IRSensing: public State {
-    uint16_t currentFrequency = 0;
+    uint32_t currentFrequency = 0;
     uint64_t startTime;
     
     public:
@@ -16,7 +16,6 @@ class S_IRSensing: public State {
             static const uint16_t SAMPLING_TIME = 100;
 
             static uint64_t samplingStart = millis();
-
             static uint8_t currentState = digitalRead( IR_SENSOR );
             static uint32_t numSwitches = 0;
 
@@ -31,21 +30,11 @@ class S_IRSensing: public State {
                 numSwitches = 0;
                 samplingStart = millis();
             }
-
-
         }
 
         bool transistionCondition() {
             // <tt>SeekingThirdEwok<tt>
             static const uint16_t FREQUENCY_CUTOFF = 9000;
-
             return currentFrequency > FREQUENCY_CUTOFF;
-        }
-
-        bool errorCondition() {
-            // <tt>SeekingThirdEwok<tt>
-            static const uint16_t MAX_WAITING_TIME = 12000;
-            
-            return millis() - startTime > MAX_WAITING_TIME;
         }
 };
