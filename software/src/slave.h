@@ -31,19 +31,9 @@ void setup() {
     delay( 1000 );
     
     digitalWrite( RESET_CONTROL, HIGH );
-     uint32_t rightAvg = 0;
-    uint32_t leftAvg = 0;
 
-    for( int i = 0; i < 50; i++ ) {
-        rightAvg += analogRead( R_CLAW_DETECT );
-        leftAvg += analogRead( L_CLAW_DETECT );
-    }
-
-    rightAvg /= 50;
-    leftAvg /= 50;
-
-    CLAW_THRESHOLD_L = leftAvg + 30;  
-    CLAW_THRESHOLD_R = rightAvg + 30;
+    CLAW_THRESHOLD_L = 200;  
+    CLAW_THRESHOLD_R = 200;
 }
 
 void loop() {
@@ -127,6 +117,18 @@ void loop() {
             }
             case ATTACH_PLATFORMS: {
                 first.attach();
+            }
+
+            case RAISE_BASKET: {
+                for( int i = 0; i < 5; i++ ) {
+                    stepper.step( 26065 );
+                }
+            }
+
+            case LOWER_BASKET: {
+                for( int i = 0; i < 5; i++ ) {
+                    stepper.step( -26065 );
+                }
             }
         }
     }

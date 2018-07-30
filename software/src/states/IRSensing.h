@@ -44,7 +44,7 @@ class S_IRSensing: public State {
 
         bool errorCondition() {
             // <tt>SeekingThirdEwok<tt>
-            static const uint16_t MAX_WAITING_TIME = 1000;
+            static const uint16_t MAX_WAITING_TIME = 12000;
             
             return millis() - startTime > MAX_WAITING_TIME;
         }
