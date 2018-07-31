@@ -11,8 +11,7 @@ class S_SeekingSecondEwok: public State {
         Serial.begin( 9600 );
 
         Serial.write( INIT_L_CLAW );
-        Serial.write( LIFT_L_CLAW ); 
-        Serial.write( CLOSE_L_CLAW );
+        Serial.write( L_CLAW_OUT_OF_WAY );
     }
 
     void onLoop()  { 
@@ -21,7 +20,6 @@ class S_SeekingSecondEwok: public State {
 
     void onEnd() {
         Motors::stop();
-
         Serial.write( DETACH_L_CLAW );
         Serial.flush();
         Serial.end();
