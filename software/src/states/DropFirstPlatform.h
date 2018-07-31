@@ -23,6 +23,8 @@ class S_DropFirstPlatform: public State {
         Motors::run( -130 );
         delay( 400 );
         Motors::stop();
+        Motors::run( 90 , 110);
+        delay( 500 );
     }
 
     bool transitionCondition() {
