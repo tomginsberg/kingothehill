@@ -10,7 +10,7 @@ class S_PositionForDrop: public State {
     
     void onStart() {
         Motors::run( -120 ); 
-        delay( 220 );
+        delay( 520 );
     }
 
     void onEnd()   { 

@@ -17,7 +17,7 @@ class S_SeekingThirdEwok: public State {
     }
 
     void onLoop()  { 
-        tf.poll( 100 ); 
+        tf.poll( 150 ); 
         if( millis() - startTime > DELAY_TIME && !droppedClaw ) {
             Serial.write( INIT_R_CLAW );
             Serial.write( LOWER_R_CLAW );
@@ -26,7 +26,7 @@ class S_SeekingThirdEwok: public State {
             Serial.write( INIT_L_CLAW );
             Serial.write( LOWER_L_CLAW );
             Serial.write( OPEN_L_CLAW );
-
+            delay( 500 );
             droppedClaw = true;
         }
     }

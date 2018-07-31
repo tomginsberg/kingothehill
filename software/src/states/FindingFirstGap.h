@@ -9,7 +9,7 @@ class S_FindingFirstGap: public State {
     void onStart() {
         //back up
         Motors::run( -130 );
-        delay( 850 );
+        delay( 550 );
 
         //rotate clockwise
         Motors::pivot( 150, CLOCKWISE );
@@ -17,10 +17,10 @@ class S_FindingFirstGap: public State {
 
         //go forward for a bit 
         Motors::run( 110 );
-        delay( 950 );
+        delay( 1150 );
 
         //sweep left
-        Motors::run( 170, -70 );
+        Motors::run( 150, -70 );
     }
 
     void onEnd() { 

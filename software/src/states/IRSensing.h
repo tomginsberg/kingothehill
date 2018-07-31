@@ -31,9 +31,10 @@ class S_IRSensing: public State {
                 samplingStart = millis();
             }
         }
+        
 
-        bool transistionCondition() {
-            // <tt>SeekingThirdEwok<tt>
+        bool transitionCondition() {
+            // <tt>ArchPass<tt>
             static const uint16_t FREQUENCY_CUTOFF = 9000;
             return currentFrequency > FREQUENCY_CUTOFF;
         }

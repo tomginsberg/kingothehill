@@ -9,7 +9,6 @@
 #define KD_TAPE ((float) 0.0005)
 #define KI_TAPE ((float) 0.001)
 
-#define SETPOINT 0
 #define GAIN 1
 
 #define MAX_SPEED 255

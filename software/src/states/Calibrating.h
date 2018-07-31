@@ -22,6 +22,8 @@ class S_Calibrating: public State {
 
         LEFT_EDGE_BASELINE = analogRead( TF_EDGE_LEFT );
         RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
+        SETPOINT = map( analogRead( TF_FAR_LEFT ), 80, 750, 60, 600 ) + analogRead( TF_CLOSE_LEFT ) - 
+                    analogRead( TF_CLOSE_RIGHT ) - map( analogRead( TF_FAR_RIGHT ), 120, 400, 60, 600 );
     }
 
     void onEnd() {

@@ -21,7 +21,7 @@ class S_DropFirstPlatform: public State {
         Serial.flush();
         Serial.end();
         Motors::run( -130 );
-        delay( 300 );
+        delay( 400 );
         Motors::stop();
     }
 
