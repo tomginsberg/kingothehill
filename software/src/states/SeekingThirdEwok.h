@@ -7,8 +7,9 @@
 class S_SeekingThirdEwok: public State {
     TapeFollower tf;
     uint64_t startTime;
+    uint8_t state = 10;
     bool droppedClaw = false;
-    const uint16_t DELAY_TIME = 3000;
+    const uint16_t DELAY_TIME = 4800;
 
     void onStart() { 
         Serial.begin( 9600 );
@@ -17,18 +18,54 @@ class S_SeekingThirdEwok: public State {
     }
 
     void onLoop()  { 
-        tf.poll( 150 ); 
-        if( millis() - startTime > DELAY_TIME && !droppedClaw ) {
-            Serial.write( INIT_R_CLAW );
-            Serial.write( LOWER_R_CLAW );
-            Serial.write( OPEN_R_CLAW );
-            Serial.write( DETACH_R_CLAW );
-            Serial.write( INIT_L_CLAW );
-            Serial.write( LOWER_L_CLAW );
-            Serial.write( OPEN_L_CLAW );
-            delay( 500 );
-            droppedClaw = true;
-        }
+        switch (state){
+            case 10:
+                {
+                    tf.poll( 150 );
+                    if( millis() - startTime > DELAY_TIME ) {
+                        Motors::stop();
+                        delay(300);
+                        state = 20;
+                    }
+                    break;
+
+                }
+            case 20:
+                {
+                    Motors::run( 60, 150 );
+                    if (analogRead( TF_FAR_LEFT ) < 90 ) {
+                        Motors::stop();
+                        delay(300);
+                        state =30;
+                    }
+                    break;
+                }
+
+            case 30:
+                {
+                    Serial.write( INIT_R_CLAW );
+                    Serial.write( LOWER_R_CLAW );
+                    
+                    
+                    Serial.write( INIT_L_CLAW );
+                    Serial.write( LOWER_L_CLAW );
+                    Serial.write( OPEN_L_CLAW );
+                    
+                    delay(1000);
+                    Serial.write( DETACH_R_CLAW );
+                    state = 40;
+                    break;
+                }
+
+            case 40:
+                {
+                    tf.poll(150);
+                    break;
+                }
+
+
+            }      
+    
     }
 
     void onEnd() {
@@ -41,6 +78,6 @@ class S_SeekingThirdEwok: public State {
 
     bool transitionCondition() {
         // <tt>AcquireThirdEwok<tt>
-        return droppedClaw && digitalRead( L_CLAW_COMM_IN );
+        return digitalRead( L_CLAW_COMM_IN ) && state==40;
     }
 };

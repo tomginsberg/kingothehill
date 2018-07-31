@@ -6,14 +6,18 @@
 
 class S_ArchPass: public State {
     void onStart() {
-        Motors::run(120);
+        Motors::run(40,140);
         delay(100);
-        Motors::run(170,-70);
+        Motors::stop();
+        delay(20);
+        Motors::run( 120 );
+        delay( 250 );
+        Motors::run( 170, -70 );
     }
     
     void onEnd()   { 
         Motors::stop();
-        delay(100); 
+        delay( 100 ); 
     }
 
     bool transitionCondition() {

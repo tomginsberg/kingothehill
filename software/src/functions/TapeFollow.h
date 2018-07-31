@@ -5,10 +5,6 @@
 #include "../Pins.h"
 #include "Motors.h"
 
-#define KP_TAPE ((float) 0.16)
-#define KD_TAPE ((float) 0.0005)
-#define KI_TAPE ((float) 0.001)
-
 #define GAIN 1
 
 #define MAX_SPEED 255
@@ -22,6 +18,7 @@
 #define DEADBAND 205
 
 class TapeFollower {  
+   
     void scan( int dir ) {
         if( dir < 0 ) {
             Motors::run( 95, 15 );
@@ -31,6 +28,10 @@ class TapeFollower {
     }
 
     public: 
+        float kpTape = 0.16;
+        float kdTape = 0.0005;
+        float kiTape = 0.001;
+
         bool scanning = false;
         uint64_t lastWriteTime = 0;
         
@@ -44,10 +45,10 @@ class TapeFollower {
             static uint8_t lastSpeed[2] = { speed, speed };
             
             if( millis() - lastWriteTime > TIME_DELAY ) {
-                int16_t farLeft    = map( analogRead( TF_FAR_LEFT ), 80, 750, 60, 600 );
+                int16_t farLeft    = map( analogRead( TF_FAR_LEFT ), 80, 750, 50, 500 );
                 int16_t closeLeft  = analogRead( TF_CLOSE_LEFT );
                 int16_t closeRight = analogRead( TF_CLOSE_RIGHT );
-                int16_t farRight   = map( analogRead( TF_FAR_RIGHT ), 120, 400, 60, 600 );
+                int16_t farRight   = map( analogRead( TF_FAR_RIGHT ), 100, 400, 50, 500 );
 
                 float newError = ( farLeft + closeLeft - closeRight - farRight ) - 20;
                 if( farLeft < white[0] && closeLeft < white[1] && closeRight < white[2] && farRight < white[3] ) {
@@ -58,9 +59,9 @@ class TapeFollower {
                     error = newError;
 
                     int32_t motorCorrection = GAIN * (
-                        constrain( KP_TAPE * error, -EMAX, EMAX ) + 
-                        constrain( KD_TAPE * errorDerivative, -DMAX, DMAX ) +
-                        constrain( KI_TAPE * errorIntegral, -IMAX, IMAX ) );
+                        constrain( kpTape * error, -EMAX, EMAX ) + 
+                        constrain( kdTape * errorDerivative, -DMAX, DMAX ) +
+                        constrain( kiTape * errorIntegral, -IMAX, IMAX ) );
                     
                     uint8_t rightMotorSpeed = constrain( constrain( speed + motorCorrection, 20, MAX_SPEED ), lastSpeed[0] - DEADBAND, lastSpeed[0] + DEADBAND );
                     uint8_t leftMotorSpeed  = constrain( constrain( speed - motorCorrection, 20, MAX_SPEED ), lastSpeed[1] - DEADBAND, lastSpeed[1] + DEADBAND );
@@ -68,7 +69,7 @@ class TapeFollower {
                     lastSpeed[0] = rightMotorSpeed;
                     lastSpeed[1] = leftMotorSpeed;
                     
-                    Motors::run( rightMotorSpeed, leftMotorSpeed+3 );
+                    Motors::run( rightMotorSpeed, leftMotorSpeed );
                 }
 
                 lastWriteTime = millis();

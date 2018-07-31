@@ -23,12 +23,13 @@ class S_DropFirstPlatform: public State {
         Motors::run( -130 );
         delay( 400 );
         Motors::stop();
-        Motors::run( 90 , 110);
-        delay( 500 );
+        Motors::run( 100 , 120);
+        delay( 1400 );
+        Motors::stop();
     }
 
     bool transitionCondition() {
-        //<tt>SeekingSecondEwok<tt>
+        //<tt>CrossingBridge<tt>
         return true;
     }
 };

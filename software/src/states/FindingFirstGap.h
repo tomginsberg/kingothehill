@@ -17,7 +17,7 @@ class S_FindingFirstGap: public State {
 
         //go forward for a bit 
         Motors::run( 110 );
-        delay( 1150 );
+        delay( 1000 );
 
         //sweep left
         Motors::run( 150, -70 );
