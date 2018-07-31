@@ -49,7 +49,7 @@ class TapeFollower {
                 int16_t closeRight = analogRead( TF_CLOSE_RIGHT );
                 int16_t farRight   = map( analogRead( TF_FAR_RIGHT ), 120, 400, 60, 600 );
 
-                float newError = ( farLeft + closeLeft - closeRight - farRight ) - SETPOINT;
+                float newError = ( farLeft + closeLeft - closeRight - farRight ) - 20;
                 if( farLeft < white[0] && closeLeft < white[1] && closeRight < white[2] && farRight < white[3] ) {
                     scan( errorIntegral );
                     scanning = true; 
@@ -68,7 +68,7 @@ class TapeFollower {
                     lastSpeed[0] = rightMotorSpeed;
                     lastSpeed[1] = leftMotorSpeed;
                     
-                    Motors::run( rightMotorSpeed, leftMotorSpeed );
+                    Motors::run( rightMotorSpeed, leftMotorSpeed+3 );
                 }
 
                 lastWriteTime = millis();

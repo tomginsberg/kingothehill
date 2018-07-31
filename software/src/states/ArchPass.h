@@ -6,6 +6,8 @@
 
 class S_ArchPass: public State {
     void onStart() {
+        Motors::run(120);
+        delay(100);
         Motors::run(170,-70);
     }
     
