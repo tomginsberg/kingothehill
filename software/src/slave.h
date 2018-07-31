@@ -61,6 +61,10 @@ void loop() {
                 left.liftDown();
                 break;
             }
+            case L_CLAW_OUT_OF_WAY: {
+                left.outOfWay();
+                break;
+            }
             case DETACH_L_CLAW: {
                 left.detach();
                 break;
