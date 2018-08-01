@@ -24,7 +24,7 @@ class S_AcquireThirdEwok: public State {
 
 
     bool transitionCondition() {
-        // <tt>StopAllFunctions<tt>
+        // <tt>Recalibrating<tt>
         return true;
     }
 };
