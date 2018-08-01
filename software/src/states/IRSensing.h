@@ -6,6 +6,7 @@
 class S_IRSensing: public State {
     uint32_t currentFrequency = 0;
     uint64_t startTime;
+    bool seenLowFreq = false;
     
     public:
         void onStart() {
@@ -30,12 +31,16 @@ class S_IRSensing: public State {
                 numSwitches = 0;
                 samplingStart = millis();
             }
+
+            if( !seenLowFreq && currentFrequency < 3000 && currentFrequency > 700 ) {
+                seenLowFreq = true;
+            }
         }
         
 
         bool transitionCondition() {
             // <tt>ArchPass<tt>
             static const uint16_t FREQUENCY_CUTOFF = 9000;
-            return currentFrequency > FREQUENCY_CUTOFF;
+            return currentFrequency > FREQUENCY_CUTOFF && seenLowFreq;
         }
 };
