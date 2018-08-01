@@ -8,28 +8,28 @@
 class S_FindingFirstGap: public State {
     void onStart() {
         //back up
-        Motors::run( -130 );
+        Motors::run( -100 );
         delay( 550 );
 
         Motors::stop();
         delay(200);
 
         //rotate clockwise
-        Motors::pivot( 150, CLOCKWISE );
+        Motors::pivot( 120, CLOCKWISE );
         delay( 350 );
 
         Motors::stop();
         delay(200);
 
         //go forward for a bit 
-        Motors::run( 110 );
+        Motors::run( 90 );
         delay( 900 );
 
         Motors::stop();
         delay(200);
         
         //sweep left
-        Motors::run( 150, -70 );
+        Motors::run( 120, -50 );
     }
 
     void onEnd() { 

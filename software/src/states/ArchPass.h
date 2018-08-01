@@ -6,13 +6,13 @@
 
 class S_ArchPass: public State {
     void onStart() {
-        Motors::run( 40, 140 );
+        Motors::run( 30, 120 );
         delay( 260 );
         Motors::stop();
         delay( 120 );
-        Motors::run( 120 );
+        Motors::run( 110 );
         delay( 390 );
-        Motors::run( 170, -70 );
+        Motors::run( 140, -70 );
     }
     
     void onEnd()   { 
