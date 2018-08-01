@@ -27,8 +27,7 @@ class S_Calibrating: public State {
     }
 
     void onEnd() {
-        Serial.write( INIT_PLATFORMS );
-        Serial.write( DETACH_PLATFORMS );
+        
         Serial.end();
     }
 

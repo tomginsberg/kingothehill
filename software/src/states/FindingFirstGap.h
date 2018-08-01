@@ -8,24 +8,33 @@
 class S_FindingFirstGap: public State {
     void onStart() {
         //back up
-        Motors::run( -130 );
+        Motors::run( -13, 0 );
         delay( 550 );
+
+        Motors::stop();
+        delay(1500);
 
         //rotate clockwise
         Motors::pivot( 150, CLOCKWISE );
         delay( 350 );
 
+        Motors::stop();
+        delay(1500);
+
         //go forward for a bit 
         Motors::run( 110 );
-        delay( 1000 );
+        delay( 900 );
 
+        Motors::stop();
+        delay(1500);
+        
         //sweep left
         Motors::run( 150, -70 );
     }
 
     void onEnd() { 
         Motors::stop();
-        delay( 300 );
+        delay( 1500 );
     }
 
     bool transitionCondition() {

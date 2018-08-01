@@ -8,11 +8,15 @@
 #include "../functions/Claws.h"
 
 class S_TestServo: public State {   
-    RightClaw claw;
+    LeftClaw claw;
 
     void onStart() {
         claw.init();
+    }
+
+    void onLoop() {
+        claw.openClaw();
+        delay( 600 );
         claw.closeClaw();
-        claw.liftUp();
     }
 };

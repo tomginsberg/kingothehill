@@ -9,11 +9,11 @@ class S_SeekingThirdEwok: public State {
     uint64_t startTime;
     uint8_t state = 10;
     bool droppedClaw = false;
-    const uint16_t DELAY_TIME = 4800;
+    const uint16_t DELAY_TIME = 5900;
 
     void onStart() { 
         Serial.begin( 9600 );
-
+        tf.kpTape = 0.24;
         startTime = millis();
     }
 
@@ -21,10 +21,10 @@ class S_SeekingThirdEwok: public State {
         switch (state){
             case 10:
                 {
-                    tf.poll( 150 );
+                    tf.poll( 140 );
                     if( millis() - startTime > DELAY_TIME ) {
                         Motors::stop();
-                        delay(300);
+                        delay( 300 );
                         state = 20;
                     }
                     break;
@@ -33,10 +33,10 @@ class S_SeekingThirdEwok: public State {
             case 20:
                 {
                     Motors::run( 60, 150 );
-                    if (analogRead( TF_FAR_LEFT ) < 90 ) {
+                    if ( analogRead( TF_FAR_LEFT ) < 90 ) {
                         Motors::stop();
-                        delay(300);
-                        state =30;
+                        delay( 300 );
+                        state = 30;
                     }
                     break;
                 }
@@ -51,15 +51,16 @@ class S_SeekingThirdEwok: public State {
                     Serial.write( LOWER_L_CLAW );
                     Serial.write( OPEN_L_CLAW );
                     
-                    delay(1000);
+                    delay( 1000 );
                     Serial.write( DETACH_R_CLAW );
+                    Serial.write( DETACH_L_CLAW );
                     state = 40;
                     break;
                 }
 
             case 40:
                 {
-                    tf.poll(150);
+                    tf.poll( 140 );
                     break;
                 }
 
@@ -71,7 +72,6 @@ class S_SeekingThirdEwok: public State {
     void onEnd() {
         Motors::hardStop();
 
-        Serial.write( DETACH_L_CLAW );
         Serial.flush();
         Serial.end();
     }

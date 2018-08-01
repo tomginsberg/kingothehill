@@ -8,30 +8,50 @@
 
 class S_FindTape: public State {
     uint64_t startTime = millis();
-    uint16_t seekTime = 1400;
-    uint8_t direction = RIGHT;
+    uint16_t seekTime = 50;
+    uint16_t index = 1;
+    uint8_t direction = LEFT;
+    uint8_t state =10;
 
-    void onStart() { 
-        startTime = millis();
-        if( direction == RIGHT ) {
-            Motors::run( 60, 150 ); 
-        } else {
-            Motors::run( 150, 60 );
+    
+    void onEnd() {
+        Motors::stop();
+        delay(200);
+    }
+
+    void onLoop(){
+        switch (state){
+            case 10: 
+                {
+                    //turn right
+                    Motors::run(70,130);
+                    if (analogRead(TF_CLOSE_LEFT)>120){
+                        state = 40;
+                    }
+                    else if(analogRead(TF_EDGE_LEFT)>LEFT_EDGE_BASELINE+25 || analogRead(TF_EDGE_RIGHT)>RIGHT_EDGE_BASELINE+100){
+                        
+                        Motors::stop();
+                        delay(200);
+                        state = 20;
+                    }
+                    break;
+                }
+            case 20:
+                {
+                    //left
+                    Motors::run(130,70);
+                    if (analogRead(TF_CLOSE_LEFT)>120){
+                        state = 40;
+                    }
+                    break;
+                }
+                
         }
     }
 
-    void onEnd() {
-        direction = direction == RIGHT ? LEFT : RIGHT;
-        seekTime *= 2;
-        Motors::stop(); 
-    }
-
     bool transitionCondition() {
-        // <tt>SeekingSecondEwok<tt> 
-        return direction == RIGHT ? ( analogRead( TF_CLOSE_LEFT ) > 150 ) : ( analogRead( TF_CLOSE_RIGHT ) > 150 );
+        //<tt>SeekingSecondEwok<tt> 
+        return (state==40);
     }
-    bool alternateCondition() {
-        // <tt>FindTape<tt>
-        return millis() - startTime > seekTime;
-    }
+   
 };

@@ -14,7 +14,7 @@ class S_CrossingBridge: public State {
         Serial.write( INIT_L_CLAW );
         Serial.write( L_CLAW_OUT_OF_WAY );
         delay(1000);
-        Motors::run(-40,120);
+        Motors::run( -40,120 );
         delay(400);
         startTime = millis();
     }
