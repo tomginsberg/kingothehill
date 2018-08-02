@@ -7,7 +7,8 @@
 class S_LoweringBasket: public State {
     void onStart() { 
         Motors::run( 110 );
-        delay( 1000 );
+        delay( 700 );
+        Motors::stop();
         Serial.write( LOWER_BASKET );
         delay( 2000 );
         Motors::run( -110 );
