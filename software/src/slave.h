@@ -145,7 +145,7 @@ void loop() {
 
             case RECALIBRATE: {
                 CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 100;  
-                CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 150;
+                CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 90;
                 break;
             }
         }

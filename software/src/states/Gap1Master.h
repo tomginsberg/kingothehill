@@ -6,7 +6,7 @@
 
 class S_Gap1Master: public State {
     uint8_t state = 0;
-    uint8_t sensorBias = 10;
+    uint8_t sensorBias = 15;
 
     void onLoop() { 
         switch( state ) {
@@ -14,7 +14,11 @@ class S_Gap1Master: public State {
                 {
                     LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
                     RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
-                    Motors::run( 120);
+                    Motors::run(-100);
+                    delay(300);
+                    Motors::run(0,130);
+                    delay(300);
+                    Motors::run(120);
                     state = 5;
                     break;
                 }

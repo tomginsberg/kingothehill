@@ -33,7 +33,7 @@ class S_CrossingBridge: public State {
             case 20:
                 {
                     tf.poll( 130 );
-                    if (millis() - startTime > 1150){
+                    if (millis() - startTime > 900){
                         state = 30;
                     }
                     break;

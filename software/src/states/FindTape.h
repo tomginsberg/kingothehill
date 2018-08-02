@@ -25,8 +25,8 @@ class S_FindTape: public State {
             case 10: 
                 {
                     //turn right
-                    Motors::run(-150,150);
-                    if ( analogRead( TF_CLOSE_LEFT ) > 110 || analogRead( TF_FAR_LEFT > 110 ) ) {
+                    Motors::run(-150,170);
+                    if ( analogRead( TF_FAR_LEFT > 110 ) ) {
                         state = 40;
                     }
                     else if( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + 400 ) {
