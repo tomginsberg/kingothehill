@@ -76,7 +76,7 @@ class RightClaw: public Claw {
         }
 
         void closeClaw() {
-            claw.write( 65 );
+            claw.write( 75 );
         }
 
         void detach() {

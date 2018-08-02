@@ -3,7 +3,7 @@
 #include "../State.h"
 #include "../functions/EdgeFollow.h"
 
-#define WAIT_TIME 8200
+#define WAIT_TIME 6000
 
 class S_ClimbingBridge: public State {
     EdgeFollower ef;

@@ -16,7 +16,7 @@ class S_CrossBridge2: public State {
         Motors::run( 110 );
         delay( 500 );
         
-        tf.kpTape = 0.22;
+        tf.kpTape = 0.28;
     }
 
     void onLoop()  { 
@@ -46,7 +46,7 @@ class S_CrossBridge2: public State {
         Motors::hardStop();
         delay(200);
         Motors::run( 120 );
-        delay( 610 ); 
+        delay( 750 ); 
         Motors::hardStop();
         Serial.begin( 9600 );
         Serial.write( INIT_L_CLAW );
