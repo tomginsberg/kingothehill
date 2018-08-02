@@ -9,7 +9,7 @@ class S_SeekingFourthEwok: public State {
     }
 
     void onEnd() { 
-        Motors::stop(); 
+        Motors::hardStop(); 
     }
 
     bool transitionCondition() {

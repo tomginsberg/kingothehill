@@ -33,8 +33,9 @@ class S_CrossBridge2: public State {
             }
             case 20: {
                 tf.poll( 160 );
-                if ( millis() - startTime > 2000 ) {
+                if ( millis() - startTime > 1800 ) {
                     state = 30;
+                    Motors::stop();
                 }
                 break;
             }    
@@ -42,8 +43,10 @@ class S_CrossBridge2: public State {
     }
     
     void onEnd() {
+        Motors::hardStop();
+        delay(200);
         Motors::run( 120 );
-        delay( 300 ); 
+        delay( 500 ); 
         Motors::hardStop();
         Serial.begin( 9600 );
         Serial.write( INIT_L_CLAW );
