@@ -2,6 +2,7 @@
 
 #include "../State.h"
 #include "../functions/Motors.h"
+#include "../GlobalVariables.h"
 
 #define RIGHT 0
 #define LEFT 1
@@ -24,12 +25,11 @@ class S_FindTape: public State {
             case 10: 
                 {
                     //turn right
-                    Motors::run(70,130);
+                    Motors::run(-150,150);
                     if ( analogRead( TF_CLOSE_LEFT ) > 110 || analogRead( TF_FAR_LEFT > 110 ) ) {
                         state = 40;
                     }
-                    else if( analogRead( TF_EDGE_LEFT )  > LEFT_EDGE_BASELINE  + 100 || 
-                             analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + 210 ) {
+                    else if( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + 400 ) {
                         Motors::stop();
                         delay( 200 );
                         state = 20;
@@ -39,7 +39,7 @@ class S_FindTape: public State {
             case 20:
                 {
                     //left
-                    Motors::run(130,70);
+                    Motors::run(130,30);
                     if (analogRead(TF_CLOSE_LEFT)>110){
                         state = 40;
                     }

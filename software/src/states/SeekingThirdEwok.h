@@ -13,7 +13,7 @@ class S_SeekingThirdEwok: public State {
 
     void onStart() { 
         Serial.begin( 9600 );
-        tf.kpTape = 0.26;
+        tf.kpTape = 0.275;
         startTime = millis();
     }
 
@@ -64,6 +64,9 @@ class S_SeekingThirdEwok: public State {
             case 40:
                 {
                     tf.poll( 140 );
+                    if (digitalRead( L_CLAW_COMM_IN )){
+                        state = 50;
+                    }
                     break;
                 }
 
@@ -74,13 +77,12 @@ class S_SeekingThirdEwok: public State {
 
     void onEnd() {
         Motors::hardStop();
-
         Serial.flush();
         Serial.end();
     }
 
     bool transitionCondition() {
         // <tt>AcquireThirdEwok<tt>
-        return digitalRead( L_CLAW_COMM_IN ) && (state == 40);
+        return (state == 50);
     }
 };

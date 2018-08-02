@@ -6,7 +6,7 @@
 
 class S_Gap1Master: public State {
     uint8_t state = 0;
-    uint8_t sensorBias = 20;
+    uint8_t sensorBias = 10;
 
     void onLoop() { 
         switch( state ) {
@@ -14,13 +14,13 @@ class S_Gap1Master: public State {
                 {
                     LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
                     RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
-                    Motors::run( 120 );
+                    Motors::run( 120);
                     state = 5;
                     break;
                 }
             case 5:
                 {
-                    if ( analogRead( TF_EDGE_LEFT )  > LEFT_EDGE_BASELINE  + LEFT_EDGE_THR- sensorBias)
+                    if ( analogRead( TF_EDGE_LEFT )  > LEFT_EDGE_BASELINE  + LEFT_EDGE_THR - sensorBias)
                         { 
                            state = 10;
                            Motors::hardStop();
@@ -38,7 +38,7 @@ class S_Gap1Master: public State {
             
             case 10: 
                 {
-                    Motors::run( 80, -20 );
+                    Motors::run( 90, -50 );
                     if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_EDGE_THR - sensorBias){
                             Motors::stop();
                             delay(200);
@@ -49,7 +49,7 @@ class S_Gap1Master: public State {
 
             case 20: 
                 {
-                    Motors::run( -20, 80 );
+                    Motors::run( -50, 90 );
                     if( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_BASELINE + LEFT_EDGE_THR - sensorBias) {
                         Motors::stop();
                         delay(200);

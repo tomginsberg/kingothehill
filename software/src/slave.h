@@ -144,14 +144,14 @@ void loop() {
             }
 
             case RECALIBRATE: {
-                CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 160;  
-                CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 160;
+                CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 100;  
+                CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 150;
                 break;
             }
         }
     }
 
-    if( analogRead( L_CLAW_DETECT ) > CLAW_THRESHOLD_L ) {
+    if( analogRead( L_CLAW_DETECT ) > 80 ) {
         digitalWrite( L_CLAW_COMM_OUT, HIGH );
     } else {
         digitalWrite( L_CLAW_COMM_OUT, LOW  );
