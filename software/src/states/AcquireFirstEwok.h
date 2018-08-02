@@ -12,7 +12,7 @@ class S_AcquireFirstEwok: public State {
         Serial.write( INIT_R_CLAW );
     
         Serial.write( CLOSE_R_CLAW );
-        delay( 1000 );
+        delay( 1200 );
         Serial.write( LIFT_R_CLAW );
         delay( 1500 );
         Serial.write( OPEN_R_CLAW );

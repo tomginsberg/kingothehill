@@ -8,7 +8,7 @@ class S_AcquireThirdEwok: public State {
         Serial.begin( 9600 );
         Serial.write( INIT_L_CLAW );
         Serial.write( CLOSE_L_CLAW );
-        delay( 1000 );
+        delay( 1200 );
         Serial.write( LIFT_L_CLAW );
         delay( 1500 );
         Serial.write( OPEN_L_CLAW );
