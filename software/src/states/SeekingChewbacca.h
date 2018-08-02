@@ -6,7 +6,7 @@
 
 class S_SeekingChewbacca: public State {
     void onStart() { 
-        Motors::run( 110, 115 );
+        Motors::run( 110 );
     }
 
     void onEnd() {
