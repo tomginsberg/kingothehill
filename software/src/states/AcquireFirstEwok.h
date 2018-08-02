@@ -2,7 +2,7 @@
 
 #include "../State.h"
 #include "../functions/Motors.h"
-
+#include "../GlobalVariables.h"
 #include "../SerialIDs.h"
 
 class S_AcquireFirstEwok: public State {
@@ -34,7 +34,7 @@ class S_AcquireFirstEwok: public State {
 
 
     bool transitionCondition() {
-        // <tt>FindingFirstGap<tt>
+        // <tt>Gap1Master<tt>
         return true;
     }
 };

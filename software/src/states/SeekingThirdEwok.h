@@ -55,6 +55,8 @@ class S_SeekingThirdEwok: public State {
                     delay( 1000 );
                     Serial.write( DETACH_R_CLAW );
                     Serial.write( DETACH_L_CLAW );
+                    delay(200);
+                    Serial.write ( RECALIBRATE );
                     state = 40;
                     break;
                 }
@@ -79,6 +81,6 @@ class S_SeekingThirdEwok: public State {
 
     bool transitionCondition() {
         // <tt>AcquireThirdEwok<tt>
-        return digitalRead( L_CLAW_COMM_IN ) && state == 40;
+        return digitalRead( L_CLAW_COMM_IN ) && (state == 40);
     }
 };

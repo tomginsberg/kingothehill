@@ -33,7 +33,7 @@ class FirstPlatform: public Platform {
         };
 
         void release() {
-            releaser.write( 160 );
+            releaser.write( 180 );
         };
 
         void drop() {

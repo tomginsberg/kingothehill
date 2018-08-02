@@ -4,9 +4,6 @@
 #include "../functions/Motors.h"
 #include "../GlobalVariables.h"
 
-#define LEFT_THRESHOLD 160
-#define RIGHT_THRESHOLD 240
-
 class S_FindingSecondGap: public State {
     uint8_t state = 0;
     
@@ -26,14 +23,14 @@ class S_FindingSecondGap: public State {
             }
             case 5:
                 {
-                    if ( analogRead( TF_EDGE_LEFT )  > LEFT_EDGE_BASELINE  + LEFT_THRESHOLD)
+                    if ( analogRead( TF_EDGE_LEFT )  > LEFT_EDGE_BASELINE  + LEFT_EDGE_THR)
                         { 
                        
                            state = 10;
                            Motors::hardStop();
                            delay(200);
                        }
-                    else if (analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_THRESHOLD)
+                    else if (analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_EDGE_THR)
                         {
                             state = 20;
                             Motors::hardStop();
@@ -46,7 +43,7 @@ class S_FindingSecondGap: public State {
             case 10: 
                 {
                     Motors::run( 80, 20 );
-                    if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_THRESHOLD ){
+                    if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_EDGE_THR ){
                             Motors::stop();
                             delay(200);
                             state = 40; 
@@ -57,7 +54,7 @@ class S_FindingSecondGap: public State {
             case 20: 
                 {
                     Motors::run( 20, 80 );
-                    if( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_BASELINE + LEFT_THRESHOLD ) {
+                    if( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_BASELINE + LEFT_EDGE_THR ) {
                         Motors::stop();
                         delay(200);
                         state = 40;
