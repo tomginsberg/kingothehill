@@ -16,7 +16,7 @@ class S_SeekingFirstEwok: public State {
         Serial.begin(9600);
         delay( 400 );
         Serial.write( INIT_PLATFORM_1 );
-        delay(300);
+        delay(305);
         Serial.write( DETACH_PLATFORM_1 );
         Serial.end();
         tf.kpTape = .23;
