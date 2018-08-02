@@ -9,9 +9,9 @@ class S_RaisingBasket: public State {
         Motors::run( -100 );
         Serial.begin( 9600 );
         Serial.write( RAISE_BASKET );
-        delay( 1000 );
+        delay( 400 );
         Motors::stop();
-        delay( 9000 );
+        delay( 11500 );
     }
 
     bool transitionCondition() {

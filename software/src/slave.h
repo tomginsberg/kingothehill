@@ -131,14 +131,14 @@ void loop() {
 
             case RAISE_BASKET: {
                 for( int i = 0; i < 5; i++ ) {
-                    stepper.step( 26065 );
+                    stepper.step( 26100 );
                 }
                 break;
             }
 
             case LOWER_BASKET: {
                 for( int i = 0; i < 5; i++ ) {
-                    stepper.step( -26065 );
+                    stepper.step( -26100 );
                 }
                 break;
             }

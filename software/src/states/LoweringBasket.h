@@ -6,13 +6,13 @@
 
 class S_LoweringBasket: public State {
     void onStart() { 
-        Motors::run( 110 );
-        delay( 700 );
+        Motors::run( 100 , 110);
+        delay( 600 );
         Motors::stop();
         Serial.write( LOWER_BASKET );
-        delay( 2000 );
+        delay( 3000 );
         Motors::run( -110 );
-        delay( 2000 );
+        delay( 1800 );
     }
 
     void onEnd() {
