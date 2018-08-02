@@ -13,9 +13,9 @@ class S_SeekingFirstEwok: public State {
         RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
         Serial.begin(9600);
         delay( 400 );
-        Serial.write( INIT_PLATFORMS );
+        Serial.write( INIT_PLATFORM_1 );
         delay(300);
-        Serial.write( DETACH_PLATFORMS );
+        Serial.write( DETACH_PLATFORM_1 );
         Serial.end();
     }
     void onLoop() { 

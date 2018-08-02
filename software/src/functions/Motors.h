@@ -51,8 +51,8 @@ namespace Motors {
     }
 
     void hardStop(){
-        run( -200 );
-        delay( 10 );
+        run( -255 );
+        delay( 15 );
         stop();
     }
 

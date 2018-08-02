@@ -24,8 +24,12 @@ class S_AcquireFirstEwok: public State {
 
     void onEnd() {
         Serial.write( DETACH_R_CLAW );
+        Serial.write( RECALIBRATE );
         Serial.flush();
         Serial.end();
+        RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
+        LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT );
+        
     }
 
 

@@ -11,8 +11,8 @@ class S_PositionForDrop: public State {
     void onStart() {
         Motors::stop();
         delay(80);
-        Motors::run( -130); 
-        delay( 420 );
+        Motors::run( -110); 
+        delay( 280 );
     }
 
     void onEnd()   { 

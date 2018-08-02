@@ -32,8 +32,8 @@ void setup() {
     
     digitalWrite( RESET_CONTROL, HIGH );
 
-    CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 200;  
-    CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 200;
+    CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 160;  
+    CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 160;
 }
 
 void loop() {
@@ -95,7 +95,7 @@ void loop() {
                 break;
             }
 
-            case INIT_PLATFORMS: {
+            case INIT_PLATFORM_1: {
                 first.init();
                 break;
             }
@@ -107,6 +107,15 @@ void loop() {
                 first.drop();
                 break;
             }
+            case DETACH_PLATFORM_1: {
+                first.detach();
+                break;
+            }
+
+            case INIT_PLATFORM_2: {
+                second.init();
+                break;
+            }
             case RELEASE_PLATFORM_2: {
                 second.release();
                 break;
@@ -115,24 +124,29 @@ void loop() {
                 second.drop();
                 break;
             }
-            case DETACH_PLATFORMS: {
-                first.detach();
+            case DETACH_PLATFORM_2: {
+                second.detach();
                 break;
-            }
-            case ATTACH_PLATFORMS: {
-                first.attach();
             }
 
             case RAISE_BASKET: {
                 for( int i = 0; i < 5; i++ ) {
                     stepper.step( 26065 );
                 }
+                break;
             }
 
             case LOWER_BASKET: {
                 for( int i = 0; i < 5; i++ ) {
                     stepper.step( -26065 );
                 }
+                break;
+            }
+
+            case RECALIBRATE: {
+                CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 160;  
+                CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 160;
+                break;
             }
         }
     }

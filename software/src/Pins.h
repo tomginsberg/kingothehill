@@ -16,8 +16,8 @@
 #define R_MOTOR_B 10
 
 //// Analog Pins
-#define TF_EDGE_LEFT A1
-#define TF_EDGE_RIGHT A0
+#define TF_EDGE_LEFT A0
+#define TF_EDGE_RIGHT A1
 #define TF_FAR_LEFT A2
 #define TF_CLOSE_LEFT A3
 #define TF_CLOSE_RIGHT A4

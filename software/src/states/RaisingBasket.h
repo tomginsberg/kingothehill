@@ -1,16 +1,21 @@
 #include <Arduino.h>
 
 #include "../State.h"
-#include "../Pins.h"
+#include "../functions/Motors.h"
 #include "../SerialIDs.h"
 
-class S_RaisingBasket: public State {    
+class S_RaisingBasket: public State {
     void onStart() { 
+        Motors::run( -100 );
         Serial.begin( 9600 );
         Serial.write( RAISE_BASKET );
+        delay( 1000 );
+        Motors::stop();
+        delay( 9000 );
     }
 
-    void onEnd() {
-        Serial.end();
+    bool transitionCondition() {
+        // <tt>LoweringBasket<tt> 
+        return true;
     }
 };

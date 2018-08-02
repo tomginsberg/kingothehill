@@ -4,7 +4,8 @@
 #include "../functions/Motors.h"
 #include "../GlobalVariables.h"
 
-#define EDGE_THRESHOLD 100
+#define LEFT_THRESHOLD 165
+#define RIGHT_THRESHOLD 220
 
 class S_FindingSecondGap: public State {
     uint8_t state = 0;
@@ -12,48 +13,71 @@ class S_FindingSecondGap: public State {
     void onLoop() { 
         switch( state ) {
             case 0: {
-                Motors::run( 60, 125 );
-                delay( 800 );
+                Motors::run( -10, 140 );
+                delay( 940 );
                 Motors::stop();
-                Motors::run( 110 );
-                while( analogRead( TF_EDGE_LEFT )  < LEFT_EDGE_BASELINE  + EDGE_THRESHOLD && 
-                       analogRead( TF_EDGE_RIGHT ) < RIGHT_EDGE_BASELINE + EDGE_THRESHOLD ) {
-
-                    /* Waiting... */ 
-                }
-                Motors::hardStop();
-                if( LEFT_EDGE_BASELINE > analogRead( TF_EDGE_LEFT )  + EDGE_THRESHOLD ) {
-                    state = 10;
-                } else {
-                    state = 20;
-                }
+                delay(300);
+                LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
+                RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
+                Motors::run( 130 );
+                delay(400);
+                state = 5;
                 break;
             }
+            case 5:
+                {
+                    if ( analogRead( TF_EDGE_LEFT )  > LEFT_EDGE_BASELINE  + LEFT_THRESHOLD)
+                        { 
+                       
+                           state = 10;
+                           Motors::hardStop();
+                           delay(200);
+                       }
+                    else if (analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_THRESHOLD)
+                        {
+                            state = 20;
+                            Motors::hardStop();
+                            delay(200);
+                        }
 
-            case 10: {
-                Motors::run( 90, 60 );
-                while( analogRead( TF_EDGE_RIGHT ) < RIGHT_EDGE_BASELINE + EDGE_THRESHOLD ) {
-                    // Waiting...
+                    break;
                 }
-                Motors::stop();
-                state = 40;
-                break;
-            }
+            
+            case 10: 
+                {
+                    Motors::run( 80, 20 );
+                    if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_THRESHOLD ){
+                            Motors::stop();
+                            delay(200);
+                            state = 40; 
+                        }
+                    break;
+                }
 
-            case 20: {
-                Motors::run( 90, 60 );
-                while( analogRead( TF_EDGE_LEFT ) < LEFT_EDGE_BASELINE + EDGE_THRESHOLD ) {
-                    // Waiting...
+            case 20: 
+                {
+                    Motors::run( 20, 80 );
+                    if( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_BASELINE + LEFT_THRESHOLD ) {
+                        Motors::stop();
+                        delay(200);
+                        state = 40;
+                    }
+                    break;
                 }
-                Motors::stop();
-                state = 40;
-                break;
-            }
+            
         }
     }
 
+    void onEnd() {
+        delay(200);
+        Motors::run(-100,-100);
+        delay(600);
+        Motors::stop();
+        delay(200);
+    }
+
     bool transitionCondition() {
-        // <tt>StopAllFunctions<tt> 
-        return state == 40;
+        // <tt>DropSecondPlatform<tt> 
+        return (state == 40);
     }
 };
