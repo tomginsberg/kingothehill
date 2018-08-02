@@ -4,8 +4,8 @@
 #include "../functions/Motors.h"
 #include "../GlobalVariables.h"
 
-#define LEFT_THRESHOLD 165
-#define RIGHT_THRESHOLD 220
+#define LEFT_THRESHOLD 160
+#define RIGHT_THRESHOLD 240
 
 class S_FindingSecondGap: public State {
     uint8_t state = 0;
@@ -14,7 +14,7 @@ class S_FindingSecondGap: public State {
         switch( state ) {
             case 0: {
                 Motors::run( -10, 140 );
-                delay( 940 );
+                delay( 990 );
                 Motors::stop();
                 delay(300);
                 LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
@@ -71,7 +71,7 @@ class S_FindingSecondGap: public State {
     void onEnd() {
         delay(200);
         Motors::run(-100,-100);
-        delay(600);
+        delay(500);
         Motors::stop();
         delay(200);
     }

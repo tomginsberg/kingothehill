@@ -13,7 +13,7 @@ class S_SeekingThirdEwok: public State {
 
     void onStart() { 
         Serial.begin( 9600 );
-        tf.kpTape = 0.24;
+        tf.kpTape = 0.26;
         startTime = millis();
     }
 
