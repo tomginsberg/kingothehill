@@ -2,10 +2,11 @@
 
 #include <Arduino.h>
 
-#define RIGHT_EDGE_THR 200
-#define LEFT_EDGE_THR 200
+uint8_t RIGHT_EDGE_THR = 240;
+uint8_t LEFT_EDGE_THR = 160;
 
 uint16_t LEFT_EDGE_BASELINE;
 uint16_t RIGHT_EDGE_BASELINE;
 uint16_t SETPOINT;
+
 

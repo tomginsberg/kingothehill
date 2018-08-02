@@ -18,8 +18,8 @@ class S_Calibrating: public State {
         delay( 400 );
         Serial.write( DETACH_R_CLAW );
 
-        Serial.write( INIT_PLATFORMS );
-        Serial.write( DETACH_PLATFORMS );
+        Serial.write( INIT_PLATFORM_1 );
+        Serial.write( DETACH_PLATFORM_1 );
 
         LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
         RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );

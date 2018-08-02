@@ -33,7 +33,7 @@ class FirstPlatform: public Platform {
         };
 
         void release() {
-            releaser.write( 160 );
+            releaser.write( 180 );
         };
 
         void drop() {
@@ -52,6 +52,7 @@ class SecondPlatform: public Platform {
 
     public:
         void init() {
+            attach();
             releaser.write( 150 );
             dropper.write( 0 );
         }
@@ -66,7 +67,7 @@ class SecondPlatform: public Platform {
         };
 
         void drop() {
-            dropper.write( 180 );
+            dropper.write( 175 );
         };
 
         void detach() {

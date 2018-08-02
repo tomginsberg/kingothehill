@@ -5,10 +5,10 @@
 #include "../Pins.h"
 
 class S_Recalibrating: public State {
-    void onStart() { 
+    void onStart() {
         LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
         RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
-    }
+     }
 
     bool transitionCondition() {
         // <tt>FindingSecondGap<tt> 

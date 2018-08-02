@@ -2,7 +2,7 @@
 
 #include "../State.h"
 #include "../functions/Motors.h"
-
+#include "../GlobalVariables.h"
 #include "../SerialIDs.h"
 
 class S_AcquireFirstEwok: public State {
@@ -24,13 +24,17 @@ class S_AcquireFirstEwok: public State {
 
     void onEnd() {
         Serial.write( DETACH_R_CLAW );
+        Serial.write( RECALIBRATE );
         Serial.flush();
         Serial.end();
+        RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
+        LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT );
+        
     }
 
 
     bool transitionCondition() {
-        // <tt>FindingFirstGap<tt>
+        // <tt>Gap1Master<tt>
         return true;
     }
 };

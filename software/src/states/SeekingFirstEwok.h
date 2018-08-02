@@ -4,6 +4,8 @@
 #include "../functions/TapeFollow.h"
 #include "../Pins.h"
 #include "../functions/Motors.h"
+#include "../GlobalVariables.h"
+#include "../SerialIDs.h"
 
 class S_SeekingFirstEwok: public State {
     TapeFollower tf;
@@ -13,10 +15,11 @@ class S_SeekingFirstEwok: public State {
         RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
         Serial.begin(9600);
         delay( 400 );
-        Serial.write( INIT_PLATFORMS );
-        delay(300);
-        Serial.write( DETACH_PLATFORMS );
+        Serial.write( INIT_PLATFORM_1 );
+        delay(305);
+        Serial.write( DETACH_PLATFORM_1 );
         Serial.end();
+        tf.kpTape = .23;
     }
     void onLoop() { 
         tf.poll( 170 ); 

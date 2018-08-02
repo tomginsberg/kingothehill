@@ -3,9 +3,10 @@
 #include "../State.h"
 #include "../SerialIDs.h"
 
-class S_AcquireThirdEwok: public State {
+class S_AcquireChewbacca: public State {
     void onStart() { 
         Serial.begin( 9600 );
+
         Serial.write( INIT_L_CLAW );
         Serial.write( CLOSE_L_CLAW );
         delay( 1000 );
@@ -16,6 +17,8 @@ class S_AcquireThirdEwok: public State {
     }
 
     void onEnd() {
+        Serial.write( LOWER_L_CLAW );
+        delay( 700 );
         Serial.write( DETACH_L_CLAW );
         Serial.flush();
         Serial.end();
@@ -23,7 +26,7 @@ class S_AcquireThirdEwok: public State {
 
 
     bool transitionCondition() {
-        // <tt>Recalibrating<tt>
+        // <tt>RaisingBasket<tt>
         return true;
     }
 };

@@ -34,7 +34,7 @@ class S_FindingFirstGap: public State {
 
     void onEnd() { 
         Motors::stop();
-        delay( 1500 );
+        delay( 200 );
     }
 
     bool transitionCondition() {
