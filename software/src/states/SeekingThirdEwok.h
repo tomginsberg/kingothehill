@@ -21,7 +21,7 @@ class S_SeekingThirdEwok: public State {
         switch (state){
             case 10:
                 {
-                    tf.poll( 170 );
+                    tf.poll( 140 );
                     if( millis() - startTime > DELAY_TIME ) {
                         Motors::stop();
                         delay( 300 );

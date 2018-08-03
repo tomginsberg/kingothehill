@@ -3,7 +3,7 @@
 #include "../State.h"
 #include "../functions/EdgeFollow.h"
 
-#define WAIT_TIME 6000
+#define WAIT_TIME 8000
 
 class S_ClimbingBridge: public State {
     EdgeFollower ef;
@@ -11,6 +11,8 @@ class S_ClimbingBridge: public State {
 
     void onStart() {
         startTime = millis();
+        Serial.begin( 9600 );
+        Serial.write( RAISE_BASKET_A_BIT );
     }
 
     void onLoop() { 
