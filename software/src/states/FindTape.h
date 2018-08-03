@@ -29,11 +29,11 @@ class S_FindTape: public State {
                     if ( analogRead( TF_FAR_LEFT ) > 110 || analogRead( TF_CLOSE_LEFT ) > 110  ) {
                         state = 40;
                     }
-                    else if( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + 400 ) {
-                        Motors::stop();
-                        delay( 200 );
-                        state = 20;
-                    }
+                    // else if( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + 400 ) {
+                    //     Motors::stop();
+                    //     delay( 200 );
+                    //     state = 20;
+                    // }
                     break;
                 }
             case 20:

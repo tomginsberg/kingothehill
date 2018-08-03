@@ -16,6 +16,9 @@ class EdgeFollower {
     int16_t errorDerivative = 0;
     
     public:
+        uint8_t lastLSpeed = 0;
+        uint8_t lastRSpeed = 0;
+        
         void poll( int speed ) {
             int16_t EDGE_SETPOINT = RIGHT_EDGE_BASELINE + 190;
 
@@ -29,6 +32,9 @@ class EdgeFollower {
 
             uint8_t rightMotorSpeed = constrain( speed + motorCorrection, 0, MAX_SPEED_EDGE );
             uint8_t leftMotorSpeed = constrain( speed - motorCorrection, 0, MAX_SPEED_EDGE );
+
+            lastLSpeed = leftMotorSpeed;
+            lastRSpeed = rightMotorSpeed;
 
             Motors::run( rightMotorSpeed, leftMotorSpeed );
         }

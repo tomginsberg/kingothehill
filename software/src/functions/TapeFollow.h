@@ -40,7 +40,7 @@ class TapeFollower {
         float errorIntegral = 0; 
         
         const uint8_t white[4] = { 0, 0, 0, 0 };
-        
+
         void poll( uint8_t speed ) {
             static uint8_t lastSpeed[2] = { speed, speed };
             

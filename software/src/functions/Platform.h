@@ -67,7 +67,7 @@ class SecondPlatform: public Platform {
         };
 
         void drop() {
-            dropper.write( 175 );
+            dropper.write( 180 );
         };
 
         void detach() {
