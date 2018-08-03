@@ -26,7 +26,7 @@ void setup() {
 
     Serial.begin( 9600 );
 
-    stepper.setSpeed( 1200 );  
+    stepper.setSpeed( 1500 );  
 
     delay( 1000 );
     
@@ -129,16 +129,34 @@ void loop() {
                 break;
             }
 
-            case RAISE_BASKET: {
+            //raise 25%
+            case RAISE_BASKET_A_BIT: {
                 for( int i = 0; i < 5; i++ ) {
-                    stepper.step( 26100 );
+                    stepper.step( 6525 );
                 }
                 break;
             }
 
-            case LOWER_BASKET: {
+            //raise 75%
+            case RAISE_BASKET_THE_REST: {
                 for( int i = 0; i < 5; i++ ) {
-                    stepper.step( -26100 );
+                    stepper.step( 19575 );
+                }
+                break;
+            }
+
+            //lower 15%
+            case LOWER_BASKET_TO_MID: {
+                for( int i = 0; i < 5; i++ ) {
+                    stepper.step( -3915 );
+                }
+                break;
+            }
+
+            //lower 85%
+            case LOWER_BASKET_FROM_MID: {
+                for( int i = 0; i < 5; i++ ) {
+                    stepper.step( -22185 );
                 }
                 break;
             }
