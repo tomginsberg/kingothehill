@@ -9,9 +9,10 @@ class S_SeekingSecondEwok: public State {
 
     void onStart() {
         tf.kdTape = 0.19;
+        tf.MAX_SPEED=170;
     }
     void onLoop() { 
-        tf.poll( 85 ); 
+        tf.poll( 130 ); 
     }
 
     bool transitionCondition() {

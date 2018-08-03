@@ -1,3 +1,4 @@
+
 #include <Arduino.h>
 
 #include "../State.h"
@@ -6,7 +7,7 @@
 
 class S_Gap1Master: public State {
     uint8_t state = 0;
-    uint8_t sensorBias = 15;
+    uint8_t sensorBias = 5;
 
     void onLoop() { 
         switch( state ) {

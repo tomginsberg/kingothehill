@@ -21,6 +21,15 @@ SecondPlatform second;
 uint16_t CLAW_THRESHOLD_L;
 uint16_t CLAW_THRESHOLD_R;
 
+int baseSpeed=1200;
+long steps=120000;
+int intervals=100;
+int maxSpeed=2000;
+long stepSum=0;
+
+int dv;
+int ds;
+
 void setup() {
     initializePins();
 
@@ -34,6 +43,9 @@ void setup() {
 
     CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 160;  
     CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 160;
+
+    dv = (maxSpeed-baseSpeed)/intervals;
+    ds=steps/intervals;
 }
 
 void loop() {
@@ -129,18 +141,57 @@ void loop() {
                 break;
             }
 
-            case RAISE_BASKET: {
+            //raise 25%
+            case RAISE_BASKET_A_BIT: {
                 for( int i = 0; i < 5; i++ ) {
-                    stepper.step( 26100 );
+                    stepper.step( 6525 );
+                }
+                break;
+            }
+
+            //raise 75%
+            case RAISE_BASKET_THE_REST: {
+                for( int i = 0; i < 5; i++ ) {
+                    stepper.step( 19575 );
+                }
+                break;
+            }
+
+            //lower 15%
+            case LOWER_BASKET_TO_MID: {
+                for( int i = 0; i < 5; i++ ) {
+                    stepper.step( -3915 );
+                }
+                break;
+            }
+
+            //lower 85%
+            case LOWER_BASKET_FROM_MID: {
+                for( int i = 0; i < 5; i++ ) {
+                    stepper.step( -22185 );
                 }
                 break;
             }
 
             case LOWER_BASKET: {
-                for( int i = 0; i < 5; i++ ) {
-                    stepper.step( -26100 );
+                for (int i=0; i<10; i++){
+                    stepper.step(-12000);
                 }
-                break;
+            }
+
+            case RAISE_BASKET_MASTER: {
+                for (int i=0; i<intervals; i++){
+                    stepSum+=intervals;
+                    stepper.step(ds);
+                    if (stepSum<80000){
+                        baseSpeed+=dv;
+                    }
+                    else{
+                        baseSpeed-=dv;
+                    }
+                    stepper.setSpeed(baseSpeed);
+                }
+                stepper.setSpeed(1200);
             }
 
             case RECALIBRATE: {

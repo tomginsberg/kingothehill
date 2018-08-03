@@ -21,9 +21,6 @@ class S_Calibrating: public State {
         Serial.write( INIT_PLATFORM_1 );
         Serial.write( DETACH_PLATFORM_1 );
 
-        LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
-        RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
-
         SETPOINT = ( TapeFollower::readFarLeft()  + TapeFollower::readCloseLeft()  ) -
                    ( TapeFollower::readFarRight() + TapeFollower::readCloseRight() );  
     }

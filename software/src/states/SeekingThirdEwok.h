@@ -76,7 +76,7 @@ class S_SeekingThirdEwok: public State {
     }
 
     void onEnd() {
-        Motors::hardStop();
+        Motors::stop();
         Serial.flush();
         Serial.end();
     }

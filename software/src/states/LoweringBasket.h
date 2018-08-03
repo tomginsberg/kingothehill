@@ -9,14 +9,15 @@ class S_LoweringBasket: public State {
         Motors::run( 100, 110 );
         delay( 850 );
         Motors::stop();
-        Serial.write( LOWER_BASKET );
+        Serial.write( LOWER_BASKET_TO_MID );
         delay( 3000 );
         Motors::run( -110 );
         delay( 1800 );
     }
 
     void onEnd() {
-         Motors::stop(); 
+         Motors::stop();
+         Serial.write( LOWER_BASKET_FROM_MID ); 
     }
 
     bool transitionCondition() {

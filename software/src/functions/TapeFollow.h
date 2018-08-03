@@ -7,8 +7,6 @@
 
 #define GAIN 1
 
-#define MAX_SPEED 255
-
 #define TIME_DELAY 5
 
 #define DMAX 200
@@ -16,6 +14,8 @@
 #define IMAX 200
 
 #define DEADBAND 205
+
+
 
 class TapeFollower {  
    
@@ -31,6 +31,8 @@ class TapeFollower {
         float kpTape = 0.16;
         float kdTape = 0.0005;
         float kiTape = 0.001;
+
+        uint16_t MAX_SPEED = 255;
 
         bool scanning = false;
         uint64_t lastWriteTime = 0;
