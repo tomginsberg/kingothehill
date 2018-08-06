@@ -10,6 +10,9 @@
 
 #define STEPS_PER_REV 500
 
+#define L_CLAW_DELTA 50
+#define R_CLAW_DELTA 75
+
 Stepper stepper = Stepper( STEPS_PER_REV, STEPPER_1, STEPPER_2 );
 
 LeftClaw left;
@@ -22,7 +25,7 @@ uint16_t CLAW_THRESHOLD_L;
 uint16_t CLAW_THRESHOLD_R;
 
 int baseSpeed=1200;
-long steps=120000;
+long steps=109000;
 int intervals=100;
 int maxSpeed=2000;
 long stepSum=0;
@@ -41,8 +44,8 @@ void setup() {
     
     digitalWrite( RESET_CONTROL, HIGH );
 
-    CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 160;  
-    CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 160;
+    CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + L_CLAW_DELTA;  
+    CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + R_CLAW_DELTA;
 
     dv = (maxSpeed-baseSpeed)/intervals;
     ds=steps/intervals;
@@ -175,28 +178,38 @@ void loop() {
 
             case LOWER_BASKET: {
                 for (int i=0; i<10; i++){
-                    stepper.step(-12000);
+                    if (i==2){
+                        delay(400);
+                    }
+                    stepper.step(-steps/10);
                 }
+                break;
             }
 
             case RAISE_BASKET_MASTER: {
                 for (int i=0; i<intervals; i++){
                     stepSum+=intervals;
                     stepper.step(ds);
-                    if (stepSum<80000){
-                        baseSpeed+=dv;
+                    if (stepSum<40000){
+                        baseSpeed+=2*dv;
                     }
-                    else{
+                    else if (stepSum>80000){
                         baseSpeed-=dv;
                     }
                     stepper.setSpeed(baseSpeed);
                 }
                 stepper.setSpeed(1200);
+                break;
             }
 
             case RECALIBRATE: {
-                CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + 100;  
-                CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + 90;
+                CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + L_CLAW_DELTA;  
+                CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + R_CLAW_DELTA;
+                break;
+            }
+
+            case LEFT_CLAW_OPEN_WIDE: {
+                left.openWide();
                 break;
             }
         }

@@ -7,7 +7,7 @@
 
 class S_Gap1Master: public State {
     uint8_t state = 0;
-    uint8_t sensorBias = 5;
+    uint8_t sensorBias = 50;
 
     void onLoop() { 
         switch( state ) {
@@ -15,19 +15,19 @@ class S_Gap1Master: public State {
                 {
                     LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
                     RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
-                    Motors::run(120,105);
+                    Motors::run(135,105);
                     state = 5;
                     break;
                 }
             case 5:
                 {
-                    if ( analogRead( TF_EDGE_LEFT )  > LEFT_EDGE_BASELINE  + LEFT_EDGE_THR - sensorBias)
+                    if ( analogRead( TF_EDGE_LEFT )  > 350 - sensorBias)
                         { 
                            state = 10;
                            Motors::hardStop();
                            delay(200);
                        }
-                    else if (analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_EDGE_THR - sensorBias)
+                    else if ( analogRead( TF_EDGE_RIGHT ) > 850 - sensorBias)
                         {
                             state = 20;
                             Motors::hardStop();
@@ -40,7 +40,7 @@ class S_Gap1Master: public State {
             case 10: 
                 {
                     Motors::run( 90, -60 );
-                    if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_EDGE_THR - sensorBias){
+                    if ( analogRead( TF_EDGE_RIGHT ) > 850 - sensorBias){
                             Motors::stop();
                             delay(200);
                             state = 30; 
@@ -51,7 +51,7 @@ class S_Gap1Master: public State {
             case 20: 
                 {
                     Motors::run( -60, 90 );
-                    if( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_BASELINE + LEFT_EDGE_THR - sensorBias) {
+                    if( analogRead( TF_EDGE_LEFT ) > 350 - sensorBias) {
                         Motors::stop();
                         delay(200);
                         state = 30;
@@ -60,7 +60,7 @@ class S_Gap1Master: public State {
                 }
             case 30:
                 {
-                    Motors::run(-100);
+                    Motors::run(-100,-110);
                     delay(600);
                     Motors::stop();
                     state=40;

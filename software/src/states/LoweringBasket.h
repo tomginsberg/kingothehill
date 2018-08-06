@@ -5,23 +5,39 @@
 #include "../SerialIDs.h"
 
 class S_LoweringBasket: public State {
+    uint8_t state = 10;
+
     void onStart() { 
         Motors::run( 100, 110 );
-        delay( 850 );
+        delay( 1250 );
         Motors::stop();
-        Serial.write( LOWER_BASKET_TO_MID );
-        delay( 3000 );
-        Motors::run( -110 );
-        delay( 1800 );
+        delay( 200 );
+        Motors::run( -90, 60 );
+
+    }
+
+    void onLoop() {
+        switch( state ) {
+            case 10: 
+            {
+                Serial.write( LOWER_BASKET ); 
+                if( analogRead( TF_EDGE_RIGHT ) > 850 ) {
+                    state = 20;
+                    Motors::run( -110 );
+                    delay( 1000 );
+                }
+                break;
+            }
+        }
     }
 
     void onEnd() {
          Motors::stop();
-         Serial.write( LOWER_BASKET_FROM_MID ); 
+         
     }
 
     bool transitionCondition() {
         // <tt>StopAllFunctions<tt> 
-        return true;
+        return state == 20;
     }
 };

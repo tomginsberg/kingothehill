@@ -11,7 +11,8 @@ class S_CrossBridge2: public State {
     uint8_t state = 10;
 
     void onStart() {
-        Motors::run( -100, -100 );
+        delay(100);
+        Motors::run( -100, -110 );
         delay( 320 );
         Motors::run( 110 );
         delay( 500 );
@@ -45,7 +46,7 @@ class S_CrossBridge2: public State {
     void onEnd() {
         Motors::hardStop();
         delay(200);
-        Motors::run( 120 );
+        Motors::run( 120,130 );
         delay( 750 ); 
         Motors::hardStop();
         Serial.begin( 9600 );

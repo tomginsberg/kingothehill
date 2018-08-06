@@ -9,11 +9,11 @@ class S_SeekingThirdEwok: public State {
     uint64_t startTime;
     uint8_t state = 10;
     bool droppedClaw = false;
-    const uint16_t DELAY_TIME = 5000;
+    const uint16_t DELAY_TIME = 5900;
 
     void onStart() { 
         Serial.begin( 9600 );
-        tf.kpTape = 0.275;
+        tf.kpTape = 0.38;
         startTime = millis();
     }
 
@@ -21,7 +21,7 @@ class S_SeekingThirdEwok: public State {
         switch (state){
             case 10:
                 {
-                    tf.poll( 140 );
+                    tf.poll( 125 );
                     if( millis() - startTime > DELAY_TIME ) {
                         Motors::stop();
                         delay( 300 );

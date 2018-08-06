@@ -8,8 +8,8 @@ class S_SeekingSecondEwok: public State {
     TapeFollower tf;
 
     void onStart() {
-        tf.kdTape = 0.19;
-        tf.MAX_SPEED=170;
+        tf.kdTape = 0.21;
+        tf.MAX_SPEED=155;
     }
     void onLoop() { 
         tf.poll( 130 ); 

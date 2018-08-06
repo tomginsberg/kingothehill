@@ -8,10 +8,10 @@ class S_RaisingBasket: public State {
     void onStart() { 
         Motors::run( -100 );
         Serial.begin( 9600 );
-        Serial.write( RAISE_BASKET_THE_REST );
+        Serial.write( RAISE_BASKET_MASTER );
         delay( 400 );
         Motors::stop();
-        delay( 11500 );
+        delay( 8500 );
     }
 
     bool transitionCondition() {

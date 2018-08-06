@@ -4,7 +4,8 @@
 #include "../functions/EdgeFollow.h"
 #include "../functions/Motors.h"
 
-#define WAIT_TIME 8000
+#define WAIT_TIME 6800
+#define AVG_TIME 2000
 
 class S_ClimbingBridge: public State {
     EdgeFollower ef;
@@ -15,13 +16,11 @@ class S_ClimbingBridge: public State {
 
     void onStart() {
         startTime = millis();
-        Serial.begin( 9600 );
-        Serial.write( RAISE_BASKET_A_BIT );
     }
 
     void onLoop() { 
-        ef.poll( 120 );
-        if( millis() - startTime > ( WAIT_TIME - 2000 ) ) {
+        ef.poll( 155 );
+        if( millis() - startTime > ( WAIT_TIME - AVG_TIME ) ) {
             avgLeft = ( numReadings * avgLeft + ef.lastLSpeed ) / ( numReadings + 1 );
             avgRight = ( numReadings * avgRight + ef.lastRSpeed ) / ( numReadings + 1 );
             numReadings++;
@@ -33,7 +32,7 @@ class S_ClimbingBridge: public State {
     }
 
     bool transitionCondition() {
-        // <tt>SeekingChewbacca<tt>
-        return millis() - startTime > WAIT_TIME; 
+            //<tt>SeekingChewbacca<tt>
+            return millis() - startTime > WAIT_TIME; 
     }
 };
