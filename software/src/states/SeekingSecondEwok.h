@@ -16,11 +16,11 @@ class S_SeekingSecondEwok: public State {
     
 
     void onLoop() { 
-        tf.poll( 100 );
+        tf.poll( 90 );
 
         if(a and (millis()-startTime)>1000){
             tf.kdTape = 0.2;
-            tf.MAX_SPEED=150;
+            tf.MAX_SPEED=140;
             a=false;
         }
     }
