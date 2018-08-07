@@ -17,7 +17,8 @@ class S_CrossBridge2: public State {
         Motors::run( 110 );
         delay( 500 );
         
-        tf.kpTape = 0.28;
+        tf.kpTape = 0.32;
+        tf.kdTape = 0.1;
     }
 
     void onLoop()  { 
@@ -34,7 +35,7 @@ class S_CrossBridge2: public State {
             }
             case 20: {
                 tf.poll( 160 );
-                if ( millis() - startTime > 1800 ) {
+                if ( millis() - startTime > 1300 ) {
                     state = 30;
                     Motors::stop();
                 }
@@ -44,11 +45,10 @@ class S_CrossBridge2: public State {
     }
     
     void onEnd() {
-        Motors::hardStop();
-        delay(200);
-        Motors::run( 120,130 );
-        delay( 750 ); 
-        Motors::hardStop();
+        delay(2000);
+        Motors::run( 130,140 );
+        delay( 1100 ); 
+        Motors::stop();
         Serial.begin( 9600 );
         Serial.write( INIT_L_CLAW );
         Serial.write( LOWER_L_CLAW );

@@ -33,8 +33,10 @@ class S_CrossingBridge: public State {
             case 20:
                 {
                     tf.poll( 130 );
-                    if (millis() - startTime > 900){
+                    if (millis() - startTime > 800){
                         state = 30;
+                        Motors::stop();
+                        delay(1000);
                     }
                     break;
                 }
@@ -43,8 +45,11 @@ class S_CrossingBridge: public State {
     }
 
     void onEnd() {
+        Motors::run(100,120);
+        delay(300);
         Motors::stop();
-        delay(800);
+        delay(400);
+
         Serial.end();
     }
 

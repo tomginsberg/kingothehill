@@ -2,6 +2,7 @@
 
 #include "../State.h"
 #include "../SerialIDs.h"
+#include "../functions/Motors.h"
 
 class S_AcquireThirdEwok: public State {
     void onStart() { 
@@ -9,6 +10,9 @@ class S_AcquireThirdEwok: public State {
         Serial.write( INIT_L_CLAW );
         Serial.write( CLOSE_L_CLAW );
         delay( 1200 );
+        Motors::run(100);
+        delay(300);
+        Motors::stop();
         Serial.write( LIFT_L_CLAW );
         delay( 1500 );
         Serial.write( OPEN_L_CLAW );

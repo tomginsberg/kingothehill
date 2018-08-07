@@ -4,8 +4,8 @@
 #include "../functions/EdgeFollow.h"
 #include "../functions/Motors.h"
 
-#define WAIT_TIME 6800
-#define AVG_TIME 2000
+#define WAIT_TIME 7850
+#define AVG_TIME 2400
 
 class S_ClimbingBridge: public State {
     EdgeFollower ef;
@@ -28,7 +28,7 @@ class S_ClimbingBridge: public State {
     }
 
     void onEnd() {
-        Motors::run( avgRight, avgLeft );
+        Motors::run( avgRight, avgLeft+9 );
     }
 
     bool transitionCondition() {

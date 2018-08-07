@@ -10,7 +10,7 @@
 
 #define STEPS_PER_REV 500
 
-#define L_CLAW_DELTA 50
+#define L_CLAW_DELTA 45
 #define R_CLAW_DELTA 75
 
 Stepper stepper = Stepper( STEPS_PER_REV, STEPPER_1, STEPPER_2 );
@@ -25,13 +25,13 @@ uint16_t CLAW_THRESHOLD_L;
 uint16_t CLAW_THRESHOLD_R;
 
 int baseSpeed=1200;
-long steps=109000;
+long steps=110000;
 int intervals=100;
-int maxSpeed=2000;
+int maxSpeed=2100;
 long stepSum=0;
 
 int dv;
-int ds;
+long ds;
 
 void setup() {
     initializePins();
@@ -177,24 +177,24 @@ void loop() {
             }
 
             case LOWER_BASKET: {
-                for (int i=0; i<10; i++){
-                    if (i==2){
-                        delay(400);
+                for (int i=0; i<9; i++){
+                    if (i==1){
+                        delay(6000);
                     }
-                    stepper.step(-steps/10);
+                    stepper.step(-steps/11);
                 }
                 break;
             }
 
             case RAISE_BASKET_MASTER: {
                 for (int i=0; i<intervals; i++){
-                    stepSum+=intervals;
+                    stepSum+=ds;
                     stepper.step(ds);
                     if (stepSum<40000){
-                        baseSpeed+=2*dv;
+                        baseSpeed+=dv;
                     }
                     else if (stepSum>80000){
-                        baseSpeed-=dv;
+                        baseSpeed-=2*dv;
                     }
                     stepper.setSpeed(baseSpeed);
                 }

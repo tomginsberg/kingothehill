@@ -11,7 +11,7 @@ class S_RaisingBasket: public State {
         Serial.write( RAISE_BASKET_MASTER );
         delay( 400 );
         Motors::stop();
-        delay( 8500 );
+        delay( 9200 );
     }
 
     bool transitionCondition() {

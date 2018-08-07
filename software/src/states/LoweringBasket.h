@@ -8,8 +8,10 @@ class S_LoweringBasket: public State {
     uint8_t state = 10;
 
     void onStart() { 
-        Motors::run( 100, 110 );
-        delay( 1250 );
+        Motors::run( 70, 150 );
+        delay( 1050 );
+        Motors::run(-100,-115);
+        delay(300);
         Motors::stop();
         delay( 200 );
         Motors::run( -90, 60 );
@@ -20,11 +22,15 @@ class S_LoweringBasket: public State {
         switch( state ) {
             case 10: 
             {
-                Serial.write( LOWER_BASKET ); 
-                if( analogRead( TF_EDGE_RIGHT ) > 850 ) {
+                Serial.write( LOWER_BASKET );
+                state = 20;
+                break;
+            }
+            case 30: {
+                if( analogRead( TF_EDGE_RIGHT ) > 870 ) {
                     state = 20;
-                    Motors::run( -110 );
-                    delay( 1000 );
+                    Motors::run( -100,-115 );
+                    delay( 950 );
                 }
                 break;
             }
@@ -32,12 +38,13 @@ class S_LoweringBasket: public State {
     }
 
     void onEnd() {
+          
          Motors::stop();
          
     }
 
     bool transitionCondition() {
         // <tt>StopAllFunctions<tt> 
-        return state == 20;
+        return state == 30;
     }
 };

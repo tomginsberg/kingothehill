@@ -6,13 +6,23 @@
 
 class S_SeekingSecondEwok: public State {
     TapeFollower tf;
+    uint64_t startTime;
+    bool a = true;
 
     void onStart() {
-        tf.kdTape = 0.21;
-        tf.MAX_SPEED=155;
+        tf.kpTape = 0.28;
+        startTime = millis();
     }
+    
+
     void onLoop() { 
-        tf.poll( 130 ); 
+        tf.poll( 100 );
+
+        if(a and (millis()-startTime)>1000){
+            tf.kdTape = 0.2;
+            tf.MAX_SPEED=150;
+            a=false;
+        }
     }
 
     bool transitionCondition() {

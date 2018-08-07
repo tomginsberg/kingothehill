@@ -67,7 +67,7 @@ class S_FindingSecondGap: public State {
 
     void onEnd() {
         delay(200);
-        Motors::run(-100,-110);
+        Motors::run(-100,-105);
         delay(500);
         Motors::stop();
         delay(200);

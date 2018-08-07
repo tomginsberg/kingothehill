@@ -9,7 +9,7 @@ class S_SeekingThirdEwok: public State {
     uint64_t startTime;
     uint8_t state = 10;
     bool droppedClaw = false;
-    const uint16_t DELAY_TIME = 5900;
+    const uint16_t DELAY_TIME = 5500;
 
     void onStart() { 
         Serial.begin( 9600 );
@@ -23,20 +23,23 @@ class S_SeekingThirdEwok: public State {
                 {
                     tf.poll( 125 );
                     if( millis() - startTime > DELAY_TIME ) {
-                        Motors::stop();
+                        Motors::hardStop();
                         delay( 300 );
-                        state = 20;
+                        state = 30;
                     }
                     break;
 
                 }
             case 20:
                 {
-                    Motors::run( 60, 150 );
-                    if ( analogRead( TF_FAR_LEFT ) < 90 ) {
+                    if (analogRead( TF_CLOSE_LEFT ) > 150){
                         Motors::stop();
-                        delay( 300 );
+                        delay( 100 );
                         state = 30;
+                        tf.kpTape=0.29;
+                    }
+                    else{
+                        Motors::run( 50, 110 );
                     }
                     break;
                 }
@@ -58,20 +61,45 @@ class S_SeekingThirdEwok: public State {
                     delay(200);
                     Serial.write ( RECALIBRATE );
                     state = 40;
+                    tf.kdTape = 0;
                     break;
                 }
 
             case 40:
                 {
-                    tf.poll( 140 );
+                    tf.poll( 110 );
                     if (digitalRead( L_CLAW_COMM_IN )){
                         state = 50;
                     }
+                    if (analogRead(TF_EDGE_RIGHT)>880 && analogRead(TF_EDGE_LEFT)>400){
+                        Motors::hardStop();
+                        delay(200);
+                        state = 60;
+                    }
                     break;
                 }
+            
+            case 60: 
+            {
+                Serial.begin( 9600 );
+                Serial.write( INIT_L_CLAW );
+                Serial.write( CLOSE_L_CLAW );
+                delay( 1200 );
+                Serial.write( LIFT_L_CLAW );
+                delay( 1500 );
+                Serial.write( OPEN_L_CLAW );
+                delay( 1000 );
+                Serial.write( DETACH_L_CLAW );
+                Serial.flush();
+                Serial.end();
+                Motors::run(-100,-110);
+                delay(600);
+                Motors::stop();
+                state=70;
+                break;
 
-
-            }      
+            }   
+        }   
     
     }
 
@@ -84,5 +112,10 @@ class S_SeekingThirdEwok: public State {
     bool transitionCondition() {
         // <tt>AcquireThirdEwok<tt>
         return (state == 50);
+    }
+
+    bool errorCondition() {
+        //<tt>FindingSecondGap<tt>
+        return (state == 70);
     }
 };

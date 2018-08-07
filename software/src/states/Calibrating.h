@@ -22,7 +22,9 @@ class S_Calibrating: public State {
         Serial.write( DETACH_PLATFORM_1 );
 
         SETPOINT = ( TapeFollower::readFarLeft()  + TapeFollower::readCloseLeft()  ) -
-                   ( TapeFollower::readFarRight() + TapeFollower::readCloseRight() );  
+                   ( TapeFollower::readFarRight() + TapeFollower::readCloseRight() );
+        RIGHT_EDGE_BASELINE = analogRead(TF_EDGE_RIGHT);
+        LEFT_EDGE_BASELINE = analogRead(TF_EDGE_LEFT);  
     }
 
     void onEnd() {

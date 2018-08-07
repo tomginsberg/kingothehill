@@ -19,7 +19,7 @@ class S_SeekingFirstEwok: public State {
         delay(305);
         Serial.write( DETACH_PLATFORM_1 );
         Serial.end();
-        tf.kpTape = .25;
+        tf.kpTape = .30;
         //old .23
     }
     void onLoop() { 

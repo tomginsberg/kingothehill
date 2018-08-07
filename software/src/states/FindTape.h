@@ -9,19 +9,19 @@
 
 class S_FindTape: public State {
     uint8_t state = 10;
-    uint64_t sweepTime = millis();
-    
-    void onEnd() {
-        Motors::stop();
-        delay( 200 );
-    }
+    uint64_t sweepTime;
 
+    void onStart() {
+        
+        sweepTime = millis();
+    }
+   
     void onLoop(){
         switch ( state ) {
             case 10: 
                 {
                     //turn right
-                    Motors::run( 60, 140 );
+                    Motors::run( 40, 100 );
                     if ( analogRead( TF_FAR_LEFT ) > 110 || analogRead( TF_CLOSE_LEFT ) > 110  ) {
                         state = 40;
                     } else if( analogRead( TF_EDGE_RIGHT ) > 920 && ((millis()-sweepTime)>2000)) {
@@ -34,7 +34,7 @@ class S_FindTape: public State {
             case 20:
                 {
                     //left
-                    Motors::run( 130, 30 );
+                    Motors::run( 100, 40 );
                     if ( analogRead( TF_CLOSE_LEFT ) > 110 ) {
                         state = 40;
                     }
@@ -42,6 +42,11 @@ class S_FindTape: public State {
                 }
                 
         }
+    }
+     
+    void onEnd() {
+        Motors::stop();
+        delay( 200 );
     }
 
     bool transitionCondition() {

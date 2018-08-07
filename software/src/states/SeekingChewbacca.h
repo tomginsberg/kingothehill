@@ -6,8 +6,7 @@
 
 class S_SeekingChewbacca: public State {
     void onEnd() {
-        delay( 50 );
-        Motors::hardStop();
+        Motors::stop();
     }
 
     bool transitionCondition() {
