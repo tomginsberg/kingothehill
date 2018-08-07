@@ -50,6 +50,7 @@ class S_SeekingThirdEwok: public State {
                     Serial.write( CLOSE_R_CLAW );
                     Serial.write( LOWER_R_CLAW );
                     
+                    delay( 1000 );
 
                     Serial.write( INIT_L_CLAW );
                     Serial.write( LOWER_L_CLAW );
