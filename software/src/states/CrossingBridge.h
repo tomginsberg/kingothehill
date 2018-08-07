@@ -36,7 +36,7 @@ class S_CrossingBridge: public State {
                     if (millis() - startTime > 800){
                         state = 30;
                         Motors::stop();
-                        delay(1000);
+                        delay(500);
                     }
                     break;
                 }
