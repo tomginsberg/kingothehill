@@ -11,7 +11,7 @@ class S_FindingSecondGap: public State {
         switch( state ) {
             case 0: {
                 Motors::run( -10, 140 );
-                delay( 1050 );
+                delay( 1980 );
                 Motors::stop();
                 delay(300);
                 LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
@@ -23,14 +23,14 @@ class S_FindingSecondGap: public State {
             }
             case 5:
                 {
-                    if ( analogRead( TF_EDGE_LEFT )  > LEFT_EDGE_BASELINE  + LEFT_EDGE_THR)
+                    if ( analogRead( TF_EDGE_LEFT )  > 277)
                         { 
                        
                            state = 10;
                            Motors::hardStop();
                            delay(200);
                        }
-                    else if (analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_EDGE_THR)
+                    else if (analogRead( TF_EDGE_RIGHT ) > 775)
                         {
                             state = 20;
                             Motors::hardStop();
@@ -43,7 +43,7 @@ class S_FindingSecondGap: public State {
             case 10: 
                 {
                     Motors::run( 100, 25 );
-                    if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_EDGE_THR ){
+                    if ( analogRead( TF_EDGE_RIGHT ) > 775 ){
                             Motors::stop();
                             delay(200);
                             state = 40; 
@@ -54,7 +54,7 @@ class S_FindingSecondGap: public State {
             case 20: 
                 {
                     Motors::run( 25, 100 );
-                    if( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_BASELINE + LEFT_EDGE_THR ) {
+                    if( analogRead( TF_EDGE_LEFT ) > 277 ) {
                         Motors::stop();
                         delay(200);
                         state = 40;

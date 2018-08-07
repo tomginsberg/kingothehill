@@ -47,6 +47,10 @@ class LeftClaw: public Claw {
             claw.detach();
         }
 
+        void detachArm() {
+            arm.detach();
+        }
+
         void outOfWay() {
             arm.write( 35 );
             closeClaw();
