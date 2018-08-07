@@ -4,6 +4,6 @@
 class S_TestMotor: public State {
     public:
         void onStart() {
-            Motors::run( -255, -255 );
+            Motors::run( -200 );
         }    
 };
