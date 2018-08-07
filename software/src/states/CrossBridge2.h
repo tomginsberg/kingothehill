@@ -18,7 +18,7 @@ class S_CrossBridge2: public State {
         delay( 500 );
         
         tf.kpTape = 0.32;
-        tf.kdTape = 0.1;
+        tf.kdTape = 0;
     }
 
     void onLoop()  { 
