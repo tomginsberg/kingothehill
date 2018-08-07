@@ -45,7 +45,7 @@ class S_CrossBridge2: public State {
     }
     
     void onEnd() {
-        delay(2000);
+        delay(500);
         Motors::run( 130,140 );
         delay( 1100 ); 
         Motors::stop();
