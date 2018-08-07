@@ -16,11 +16,6 @@ class S_AcquireChewbacca: public State {
         delay( 1200 );
         Serial.write( LOWER_L_CLAW );
         delay(700);
-        Serial.write( CLOSE_L_CLAW );
-        Serial.write( LIFT_L_CLAW );
-        delay(1700);
-        Serial.write( LOWER_L_CLAW );
-        delay(700);
     }
 
     void onEnd() {
