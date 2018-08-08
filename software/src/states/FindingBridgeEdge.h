@@ -33,6 +33,6 @@ class S_FindingBridgeEdge: public State {
 
     bool transitionCondition() {
         // <tt>ClimbingBridge<tt> 
-        return state == 20 && analogRead( TF_EDGE_RIGHT ) > LEFT_EDGE_BASELINE + 200;
+        return state == 20 && analogRead( TF_EDGE_RIGHT ) > LEFT_EDGE_BASELINE + 300;
     }
 };

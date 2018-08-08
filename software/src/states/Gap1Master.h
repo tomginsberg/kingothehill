@@ -31,13 +31,13 @@ class S_Gap1Master: public State {
                 }
             case 5:
                 {
-                    if ( analogRead( TF_EDGE_LEFT )  > 350 - sensorBias-3)
+                    if ( analogRead( TF_EDGE_LEFT )  > 360)
                         { 
                            state = 10;
                            Motors::hardStop();
                            delay(200);
                        }
-                    else if ( analogRead( TF_EDGE_RIGHT ) > 850 - sensorBias - 5)
+                    else if ( analogRead( TF_EDGE_RIGHT ) > 880)
                         {
                             state = 20;
                             Motors::hardStop();
@@ -50,7 +50,7 @@ class S_Gap1Master: public State {
             case 10: 
                 {
                     Motors::run( 90, -50 );
-                    if ( analogRead( TF_EDGE_RIGHT ) > 850 - sensorBias -20){
+                    if ( analogRead( TF_EDGE_RIGHT ) > 880){
                             Motors::stop();
                             delay(200);
                             state = 30; 
@@ -61,7 +61,7 @@ class S_Gap1Master: public State {
             case 20: 
                 {
                     Motors::run( -50, 90 );
-                    if( analogRead( TF_EDGE_LEFT ) > 350 - sensorBias) {
+                    if( analogRead( TF_EDGE_LEFT ) > 360) {
                         Motors::stop();
                         delay(200);
                         state = 30;
