@@ -9,7 +9,7 @@
 #define KP_EDGE ((float) 0.6)
 #define KD_EDGE ((float) 0.7)
 
-#define MAX_SPEED_EDGE 130
+#define MAX_SPEED_EDGE 255
 
 class EdgeFollower {
     int16_t error = 0;

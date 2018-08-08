@@ -18,6 +18,7 @@ class S_CrossBridge2: public State {
         delay( 500 );
         
         tf.kpTape = 0.28;
+        tf.disableOutsideSensors();
     }
 
     void onLoop()  { 
@@ -36,7 +37,6 @@ class S_CrossBridge2: public State {
                 tf.poll( 140 );
                 if ( millis() - startTime > 1600 ) {
                     state = 30;
-                    Motors::stop();
                 }
                 break;
             }    
@@ -44,9 +44,8 @@ class S_CrossBridge2: public State {
     }
     
     void onEnd() {
-        delay(500);
-        Motors::run( 120,140 );
-        delay( 1200 ); 
+        Motors::run( 120, 140 );
+        delay( 1450 ); 
         Motors::stop();
         Serial.begin( 9600 );
         Serial.write( INIT_L_CLAW );

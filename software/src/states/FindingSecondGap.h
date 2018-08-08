@@ -13,7 +13,7 @@ class S_FindingSecondGap: public State {
         switch( state ) {
             case 0: {
                 Motors::run( -10, 140 );
-                delay( 1200 );
+                delay( 1125 );
                 Motors::stop();
                 delay( 300 );
                 LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT );
