@@ -18,6 +18,7 @@
 
 
 class TapeFollower {  
+    bool outsideSensorsDisabled = false;
    
     void scan( int dir ) {
         if( dir < 0 ) {
@@ -51,6 +52,11 @@ class TapeFollower {
                 int16_t closeLeft  = readCloseLeft();
                 int16_t closeRight = readCloseRight();
                 int16_t farRight   = readFarRight();
+
+                if( outsideSensorsDisabled ) {
+                    farLeft = 0;
+                    farRight = 0;
+                }
 
                 float newError = ( farLeft + closeLeft - closeRight - farRight ) - 20;
                 if( farLeft < white[0] && closeLeft < white[1] && closeRight < white[2] && farRight < white[3] ) {
@@ -92,5 +98,9 @@ class TapeFollower {
 
         static uint16_t readFarRight() {
             return map( analogRead( TF_FAR_RIGHT ), 100, 400, 50, 500 );
+        }
+
+        void disableOutsideSensors() {
+            outsideSensorsDisabled = true;
         }
 };
