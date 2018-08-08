@@ -24,11 +24,11 @@ SecondPlatform second;
 uint16_t CLAW_THRESHOLD_L;
 uint16_t CLAW_THRESHOLD_R;
 
-int baseSpeed=1200;
-long steps=110000;
-int intervals=100;
-int maxSpeed=2100;
-long stepSum=0;
+int currentSpeed = 1200;
+int speedIntervals = 20;
+long steps = 110000;
+int intervals = 100;
+int maxSpeed = 2500;
 
 int dv;
 long ds;
@@ -38,8 +38,6 @@ void setup() {
 
     Serial.begin( 9600 );
 
-    stepper.setSpeed( 1200 );  
-
     delay( 1000 );
     
     digitalWrite( RESET_CONTROL, HIGH );
@@ -47,7 +45,8 @@ void setup() {
     CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + L_CLAW_DELTA;  
     CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + R_CLAW_DELTA;
 
-    dv = (maxSpeed-baseSpeed)/intervals;
+    stepper.setSpeed( currentSpeed );
+    dv = (maxSpeed-currentSpeed)/speedIntervals;
     ds=steps/intervals;
 }
 
@@ -146,57 +145,59 @@ void loop() {
 
             //raise 25%
             case RAISE_BASKET_A_BIT: {
-                for( int i = 0; i < 5; i++ ) {
-                    stepper.step( 6525 );
+                ds = (int((steps*.25) / 10));
+                for( int i = 0; i < 10; i++ ) {
+                    stepper.step( ds );
                 }
                 break;
             }
 
             //raise 75%
             case RAISE_BASKET_THE_REST: {
-                for( int i = 0; i < 5; i++ ) {
-                    stepper.step( 19575 );
+                ds = (int((steps*.75) / 10));
+                for( int i = 0; i < 10; i++ ) {
+                    stepper.step( ds );
                 }
                 break;
             }
 
             //lower 15%
             case LOWER_BASKET_TO_MID: {
-                for( int i = 0; i < 5; i++ ) {
-                    stepper.step( -3915 );
+                ds = -(int((steps*.15) / 10));
+                for( int i = 0; i < 10; i++ ) {
+                    stepper.step( ds );
                 }
                 break;
             }
 
             //lower 85%
             case LOWER_BASKET_FROM_MID: {
-                for( int i = 0; i < 5; i++ ) {
-                    stepper.step( -22185 );
+                ds = -(int((steps*.85) / 10));
+                for( int i = 0; i < 10; i++ ) {
+                    stepper.step( ds );
                 }
                 break;
             }
 
             case LOWER_BASKET: {
-                for (int i=0; i<9; i++){
-                    if (i==1){
+                ds = -steps / intervals;
+                for (int i=0; i<intervals; i++){
+                    stepper.step(ds);
+                    if (i==intervals/10){
                         delay(6000);
-                    }
-                    stepper.step(-steps/11);
+                        }
                 }
                 break;
             }
 
             case RAISE_BASKET_MASTER: {
+                ds = steps / intervals;
                 for (int i=0; i<intervals; i++){
-                    stepSum+=ds;
                     stepper.step(ds);
-                    if (stepSum<40000){
-                        baseSpeed+=dv;
-                    }
-                    else if (stepSum>80000){
-                        baseSpeed-=2*dv;
-                    }
-                    stepper.setSpeed(baseSpeed);
+                    if (i<speedIntervals){
+                        currentSpeed+=dv;
+                        }
+                    stepper.setSpeed(currentSpeed);
                 }
                 stepper.setSpeed(1200);
                 break;
