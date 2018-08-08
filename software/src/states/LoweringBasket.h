@@ -11,12 +11,11 @@ class S_LoweringBasket: public State {
     void onStart() { 
         Motors::run( 70, 150 );
         delay( 1050 );
-        Motors::run(-100,-115);
-        delay(300);
+        Motors::run( -100, -115 );
+        delay( 300 );
         Motors::stop();
         delay( 200 );
-        Motors::run( -90, 60 );
-
+        Motors::run( -110, 70 );
     }
 
     void onLoop() {

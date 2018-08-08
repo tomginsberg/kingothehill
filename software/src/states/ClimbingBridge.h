@@ -4,8 +4,8 @@
 #include "../functions/EdgeFollow.h"
 #include "../functions/Motors.h"
 
-#define WAIT_TIME 7850
-#define AVG_TIME 2400
+#define WAIT_TIME 8050
+#define AVG_TIME 2500
 
 class S_ClimbingBridge: public State {
     EdgeFollower ef;
