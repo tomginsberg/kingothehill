@@ -20,7 +20,7 @@ class EdgeFollower {
         uint8_t lastRSpeed = 0;
         
         void poll( int speed ) {
-            int16_t EDGE_SETPOINT = RIGHT_EDGE_BASELINE + 90;
+            int16_t EDGE_SETPOINT = RIGHT_EDGE_BASELINE + 190;
 
             int16_t rawVal = analogRead( TF_EDGE_RIGHT );
             int16_t newError = rawVal - EDGE_SETPOINT;
