@@ -31,11 +31,13 @@ class S_Gap1Master: public State {
                 }
             case 5:
                 {
-                    if ( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_THR ) { 
+                    if ( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_THR ) {
+                    //if ( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_BASELINE + LEFT_EDGE_DELTA ) { 
                            state = 10;
                            Motors::hardStop();
                            delay(200);
                     } else if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_THR ) {
+                    //} else if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_EDGE_DELTA ) {
                             state = 20;
                             Motors::hardStop();
                             delay(200);
@@ -49,6 +51,7 @@ class S_Gap1Master: public State {
                     Motors::run( 90, -50 );
 
                     if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_THR ) {
+                    //if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_BASELINE + RIGHT_EDGE_DELTA ) {
                             Motors::stop();
                             delay(200);
                             state = 30; 
@@ -60,6 +63,7 @@ class S_Gap1Master: public State {
                 {
                     Motors::run( -50, 90 );
                     if( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_THR ) {
+                    //if( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_BASELINE + LEFT_EDGE_DELTA ) {
                         Motors::stop();
                         delay(200);
                         state = 30;

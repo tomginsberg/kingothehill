@@ -11,7 +11,7 @@
 #define STEPS_PER_REV 500
 
 #define L_CLAW_DELTA 45
-#define R_CLAW_DELTA 75
+#define R_CLAW_DELTA 65
 
 Stepper stepper = Stepper( STEPS_PER_REV, STEPPER_1, STEPPER_2 );
 

@@ -32,7 +32,7 @@ class S_Calibrating: public State {
     }
 
     bool transitionCondition() {
-        // <tt>Recalibrating<tt> 
+        // <tt>SeekingFirstEwok<tt> 
         return true;
     }
 
