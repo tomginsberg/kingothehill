@@ -13,25 +13,21 @@ class S_FindingSecondGap: public State {
                 Motors::run( -10, 140 );
                 delay( 1200 );
                 Motors::stop();
-                delay(300);
-                LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT  );
+                delay( 300 );
+                LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT );
                 RIGHT_EDGE_BASELINE = analogRead( TF_EDGE_RIGHT );
                 Motors::run( 130 );
-                delay(400);
+                delay( 400 );
                 state = 5;
                 break;
             }
             case 5:
                 {
-                    if ( analogRead( TF_EDGE_LEFT )  > 277)
-                        { 
-                       
+                    if ( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_THR ) { 
                            state = 10;
                            Motors::hardStop();
                            delay(200);
-                       }
-                    else if (analogRead( TF_EDGE_RIGHT ) > 775)
-                        {
+                    } else if (analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_THR ) {
                             state = 20;
                             Motors::hardStop();
                             delay(200);
@@ -43,7 +39,7 @@ class S_FindingSecondGap: public State {
             case 10: 
                 {
                     Motors::run( 100, 25 );
-                    if ( analogRead( TF_EDGE_RIGHT ) > 775 ){
+                    if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_THR ){
                             Motors::stop();
                             delay(200);
                             state = 40; 
@@ -54,7 +50,7 @@ class S_FindingSecondGap: public State {
             case 20: 
                 {
                     Motors::run( 25, 100 );
-                    if( analogRead( TF_EDGE_LEFT ) > 277 ) {
+                    if( analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_THR ) {
                         Motors::stop();
                         delay(200);
                         state = 40;

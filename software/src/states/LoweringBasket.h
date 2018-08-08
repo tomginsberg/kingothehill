@@ -3,6 +3,7 @@
 #include "../State.h"
 #include "../functions/Motors.h"
 #include "../SerialIDs.h"
+#include "../GlobalVariables.h"
 
 class S_LoweringBasket: public State {
     uint8_t state = 10;
@@ -27,7 +28,7 @@ class S_LoweringBasket: public State {
                 break;
             }
             case 30: {
-                if( analogRead( TF_EDGE_RIGHT ) > 870 ) {
+                if( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_THR ) {
                     state = 20;
                     Motors::run( -100,-115 );
                     delay( 950 );
