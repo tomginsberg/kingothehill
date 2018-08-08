@@ -3,6 +3,7 @@
 #include "../State.h"
 #include "../functions/TapeFollow.h"
 #include "../SerialIDs.h"
+#include "../GlobalVariables.h"
 
 class S_SeekingThirdEwok: public State {
     TapeFollower tf;
@@ -69,10 +70,9 @@ class S_SeekingThirdEwok: public State {
             case 40:
                 {
                     tf.poll( 110 );
-                    if (digitalRead( L_CLAW_COMM_IN )){
+                    if ( digitalRead( L_CLAW_COMM_IN ) ) {
                         state = 50;
-                    }
-                    if (analogRead(TF_EDGE_RIGHT)>880 && analogRead(TF_EDGE_LEFT)>400){
+                    } else if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_THR && analogRead( TF_EDGE_LEFT ) > LEFT_EDGE_THR ) {
                         Motors::hardStop();
                         delay(200);
                         state = 60;

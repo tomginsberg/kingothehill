@@ -11,7 +11,7 @@ class S_SeekingFourthEwok: public State {
     void onLoop() { 
         Motors::run( -10, 130 );
 
-        if (analogRead( TF_EDGE_RIGHT ) > 880) {
+        if ( analogRead( TF_EDGE_RIGHT ) > RIGHT_EDGE_THR ) {
             state = 20;
             Motors::run( 100, 50 );
             delay( 500 );

@@ -46,8 +46,8 @@ class S_CrossBridge2: public State {
     
     void onEnd() {
         delay(500);
-        Motors::run( 130,140 );
-        delay( 1100 ); 
+        Motors::run( 120,140 );
+        delay( 1400 ); 
         Motors::stop();
         Serial.begin( 9600 );
         Serial.write( INIT_L_CLAW );

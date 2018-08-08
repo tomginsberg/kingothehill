@@ -212,6 +212,11 @@ void loop() {
                 left.openWide();
                 break;
             }
+
+            case DETACH_L_ARM: {
+                left.detachArm();
+                break;
+            }
         }
     }
 
