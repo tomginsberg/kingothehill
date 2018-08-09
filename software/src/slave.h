@@ -233,13 +233,13 @@ void loop() {
                 break;
             }
 
-            case EWOK_PULL: {
-                pusher.write( 15 );
-            }
+            // case EWOK_PULL: {
+            //     pusher.write( 15 );
+            // }
 
-            case PUSHER_DETACH: {
-                pusher.detach();
-            }
+            // case PUSHER_DETACH: {
+            //     pusher.detach();
+            // }
         }
     }
 

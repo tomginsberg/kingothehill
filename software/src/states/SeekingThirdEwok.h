@@ -10,7 +10,7 @@ class S_SeekingThirdEwok: public State {
     uint64_t startTime;
     uint8_t state = 10;
     bool droppedClaw = false;
-    const uint16_t DELAY_TIME = 7000;
+    const uint16_t DELAY_TIME = 6700;
 
     void onStart() { 
         Serial.begin( 9600 );
@@ -81,7 +81,7 @@ class S_SeekingThirdEwok: public State {
                 Serial.flush();
                 Serial.end();
                 Motors::run( -100, -110 );
-                delay(600);
+                delay(1100);
                 Motors::stop();
                 state=70;
                 break;

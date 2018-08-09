@@ -4,6 +4,14 @@
 #include "../functions/Motors.h"
 #include "../GlobalVariables.h"
 
+#ifdef _RIGHT_
+    #define PIVOT_TIME 1200
+#endif
+
+#ifdef _LEFT_
+    #define PIVOT_TIME 1130
+#endif
+
 class S_FindingSecondGap: public State {
     uint8_t state = 0;
 
@@ -13,7 +21,7 @@ class S_FindingSecondGap: public State {
         switch( state ) {
             case 0: {
                 Motors::run( -10, 140 );
-                delay( 1200 );
+                delay( PIVOT_TIME );
                 Motors::stop();
                 delay( 300 );
                 LEFT_EDGE_BASELINE  = analogRead( TF_EDGE_LEFT );
@@ -66,7 +74,7 @@ class S_FindingSecondGap: public State {
     void onEnd() {
         delay(200);
         Motors::run(-100,-105);
-        delay(600);
+        delay(400);
         Motors::stop();
         delay(200);
     }

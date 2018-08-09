@@ -25,7 +25,8 @@ class S_CrossBridge2: public State {
         Motors::run( 110 );
         delay( 500 );
         
-        tf.kpTape = 0.16;
+        //tf.kpTape = 0.16;
+        tf.kpTape = 0.19;
         tf.disableOutsideSensors();
     }
 

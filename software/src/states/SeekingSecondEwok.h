@@ -9,7 +9,8 @@ class S_SeekingSecondEwok: public State {
     uint64_t startTime;
 
     void onStart() {
-        tf.kdTape = 0.16;
+        tf.kdTape = 0.25;
+        //old 0.16
         tf.MAX_SPEED = 117;
     }
     

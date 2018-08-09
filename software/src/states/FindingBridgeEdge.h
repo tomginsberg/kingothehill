@@ -9,7 +9,7 @@ class S_FindingBridgeEdge: public State {
     
     void onStart() { 
         Motors::run( 110,100 );
-        delay( 500 );
+        delay( 400 );
         Motors::run( 10, 130 );
     }
 

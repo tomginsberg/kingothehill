@@ -35,11 +35,11 @@ class LeftClaw: public Claw {
         }
 
         void openClaw() {
-            claw.write( 32 );
+            claw.write( 20 );
         }
 
         void closeClaw() {
-            claw.write( 125 );
+            claw.write( 100 );
         }
 
         void detach() {

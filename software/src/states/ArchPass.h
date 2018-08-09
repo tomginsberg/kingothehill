@@ -12,7 +12,7 @@ class S_ArchPass: public State {
         Motors::stop();
         delay( 120 );
         Motors::run( 110 );
-        delay( 370 );
+        delay( 310 );
         Motors::run( 100, -50 );
     }
     

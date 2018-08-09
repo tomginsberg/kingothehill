@@ -9,7 +9,7 @@ class S_RaisingBasket: public State {
         Motors::run( -100,-105 );
         Serial.begin( 9600 );
         Serial.write( RAISE_BASKET_MASTER );
-        delay( 600 );
+        delay( 350 );
         Motors::stop();
         delay( 6900 );
     }
