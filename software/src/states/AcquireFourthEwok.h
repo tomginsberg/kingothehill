@@ -17,7 +17,7 @@ class S_AcquireFourthEwok: public State {
         // Serial.write(PUSHER_DETACH);
         // delay(50);
         Serial.write( LIFT_L_CLAW );
-        delay( 1500 );
+        delay( 1700 );
         Serial.write( OPEN_L_CLAW );
         delay( 1000 );
     }

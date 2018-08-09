@@ -28,7 +28,7 @@ class S_SeekingFirstEwok: public State {
     }
 
     void onLoop() { 
-        tf.poll( 180 );
+        tf.poll( 170 );
         //old 170 
     }
 

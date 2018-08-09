@@ -32,8 +32,13 @@ class S_FindTape: public State {
                 {
                     //left
                     Motors::run( 90, 30 );
-                    if ( analogRead(TF_FAR_LEFT)>420 ) {
+                    if ( analogRead(TF_FAR_LEFT)>420 or analogRead(TF_CLOSE_LEFT) > 390  or analogRead(TF_FAR_RIGHT)>300 ) {
+                        Motors::stop();
+                        delay(100);
+                        Motors::run(20,100);
+                        delay(90);
                         state = 40;
+                        
                     }
                     break;
                 }

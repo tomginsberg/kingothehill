@@ -39,7 +39,7 @@ class LeftClaw: public Claw {
         }
 
         void closeClaw() {
-            claw.write( 100 );
+            claw.write( 105 );
         }
 
         void detach() {

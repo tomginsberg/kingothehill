@@ -6,7 +6,7 @@
 #include "../SerialIDs.h"
 
 #ifdef _LEFT_
-    #define FORWARD_TIME 1250
+    #define FORWARD_TIME 1140
 #endif
 
 #ifdef _RIGHT_
@@ -26,7 +26,7 @@ class S_CrossBridge2: public State {
         delay( 500 );
         
         //tf.kpTape = 0.16;
-        tf.kpTape = 0.19;
+        tf.kpTape = 0.26;
         tf.disableOutsideSensors();
     }
 

@@ -6,10 +6,12 @@
 
 #ifdef _RIGHT_
     #define PIVOT_TIME 1200
+    #define BACK_UP 520
 #endif
 
 #ifdef _LEFT_
     #define PIVOT_TIME 1050
+    #define BACK_UP 570
 #endif
 
 class S_FindingSecondGap: public State {
@@ -74,7 +76,7 @@ class S_FindingSecondGap: public State {
     void onEnd() {
         delay(200);
         Motors::run(-100,-105);
-        delay(400);
+        delay(BACK_UP);
         Motors::stop();
         delay(200);
     }

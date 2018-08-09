@@ -14,7 +14,7 @@ class S_AcquireThirdEwok: public State {
         delay(300);
         Motors::stop();
         Serial.write( LIFT_L_CLAW );
-        delay( 1500 );
+        delay( 1700 );
         Serial.write( OPEN_L_CLAW );
         delay( 1000 );
     }
