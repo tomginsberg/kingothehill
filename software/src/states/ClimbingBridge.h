@@ -4,7 +4,14 @@
 #include "../functions/EdgeFollow.h"
 #include "../functions/Motors.h"
 
-#define WAIT_TIME 5500
+#ifdef _LEFT_
+    #define WAIT_TIME 6700
+#endif
+
+#ifdef _RIGHT_
+    #define WAIT_TIME 7500
+#endif
+
 #define AVG_TIME 1000
 
 class S_ClimbingBridge: public State {
@@ -20,29 +27,17 @@ class S_ClimbingBridge: public State {
     }
 
     void onLoop() {
-        switch(state){
-            case 10:{
-                ef.poll( 130 );
-                if( millis() - startTime > 1000 ) {
-                    state = 20;
-                }
-                break;
-            }
-            case 20:{
-                ef.poll(170);
-                if( millis() - startTime > ( WAIT_TIME - AVG_TIME ) ) {
-                    avgLeft = ( numReadings * avgLeft + ef.lastLSpeed ) / ( numReadings + 1 );
-                    avgRight = ( numReadings * avgRight + ef.lastRSpeed ) / ( numReadings + 1 );
-                    numReadings++;
-                }
-                break;
-            }
-        }
+        ef.poll(140);
+        // if( millis() - startTime > ( WAIT_TIME - AVG_TIME ) ) {
+        //     avgLeft = ( numReadings * avgLeft + ef.lastLSpeed ) / ( numReadings + 1 );
+        //     avgRight = ( numReadings * avgRight + ef.lastRSpeed ) / ( numReadings + 1 );
+        //     numReadings++;
+        // }
     }
 
-    void onEnd() {
-        Motors::run( avgRight, avgLeft );
-    }
+    // void onEnd() {
+    //     Motors::run( avgRight, avgLeft );
+    // }
 
     bool transitionCondition() {
             //<tt>SeekingChewbacca<tt>

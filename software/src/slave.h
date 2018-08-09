@@ -10,8 +10,8 @@
 
 #define STEPS_PER_REV 500
 
-#define L_CLAW_DELTA 45
-#define R_CLAW_DELTA 65
+#define L_CLAW_DELTA 300
+#define R_CLAW_DELTA 200
 
 Stepper stepper = Stepper( STEPS_PER_REV, STEPPER_1, STEPPER_2 );
 
@@ -24,6 +24,8 @@ SecondPlatform second;
 uint16_t CLAW_THRESHOLD_L;
 uint16_t CLAW_THRESHOLD_R;
 
+Servo pusher;
+
 int currentSpeed = 1200;
 int speedIntervals = 20;
 long steps = 110000;
@@ -32,6 +34,11 @@ int maxSpeed = 2500;
 
 int dv;
 long ds;
+
+bool pusherFlag = false;
+uint64_t pushingTime = 0;
+
+void setClawThresholds();
 
 void setup() {
     initializePins();
@@ -42,12 +49,14 @@ void setup() {
     
     digitalWrite( RESET_CONTROL, HIGH );
 
-    CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + L_CLAW_DELTA;  
-    CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + R_CLAW_DELTA;
+    setClawThresholds();
 
     stepper.setSpeed( currentSpeed );
     dv = (maxSpeed-currentSpeed)/speedIntervals;
     ds=steps/intervals;
+
+    pusher.attach( PUSHER_SERVO );
+    pusher.write( 15 );
 }
 
 void loop() {
@@ -183,7 +192,7 @@ void loop() {
                 ds = -steps / intervals;
                 for (int i=0; i<intervals; i++){
                     stepper.step(ds);
-                    if (i==intervals/10){
+                    if (i==13){
                         delay(6000);
                         }
                 }
@@ -204,8 +213,7 @@ void loop() {
             }
 
             case RECALIBRATE: {
-                CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + L_CLAW_DELTA;  
-                CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + R_CLAW_DELTA;
+                setClawThresholds();
                 break;
             }
 
@@ -218,10 +226,25 @@ void loop() {
                 left.detachArm();
                 break;
             }
+
+            case EWOK_PUSH: { 
+                pusher.attach(PUSHER_SERVO);
+                pusher.write( 75 );
+                break;
+            }
+
+            case EWOK_PULL: {
+                pusher.write( 15 );
+            }
+
+            case PUSHER_DETACH: {
+                pusher.detach();
+            }
         }
     }
 
-    if( analogRead( L_CLAW_DETECT ) > 80 ) {
+
+    if( analogRead( L_CLAW_DETECT ) > 300 ) {
         digitalWrite( L_CLAW_COMM_OUT, HIGH );
     } else {
         digitalWrite( L_CLAW_COMM_OUT, LOW  );
@@ -232,4 +255,9 @@ void loop() {
     } else {
         digitalWrite( R_CLAW_COMM_OUT, LOW  );
     }
+}
+
+void setClawThresholds() {
+    CLAW_THRESHOLD_L = analogRead( L_CLAW_DETECT ) + L_CLAW_DELTA;  
+    CLAW_THRESHOLD_R = analogRead( R_CLAW_DETECT ) + R_CLAW_DELTA;
 }

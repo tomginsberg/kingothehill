@@ -3,6 +3,7 @@
 #include "../State.h"
 #include "../functions/Motors.h"
 #include "../GlobalVariables.h"
+#include "../functions/TapeFollow.h"
 
 
 class S_FindingFirstGap: public State {
@@ -39,6 +40,6 @@ class S_FindingFirstGap: public State {
 
     bool transitionCondition() {
         // <tt>PositionForDrop<tt> 
-        return analogRead( TF_FAR_LEFT ) > 150;
+        return TapeFollower::onBlack( TF_FAR_LEFT );
     }
 };

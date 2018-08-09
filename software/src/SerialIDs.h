@@ -28,3 +28,6 @@
 #define LOWER_BASKET 0x1B
 #define LEFT_CLAW_OPEN_WIDE 0x1C
 #define DETACH_L_ARM 0x1D
+#define EWOK_PUSH 0x1E
+#define EWOK_PULL 0x1F
+#define PUSHER_DETACH 0x20

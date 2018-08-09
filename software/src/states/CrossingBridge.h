@@ -45,11 +45,8 @@ class S_CrossingBridge: public State {
     }
 
     void onEnd() {
-        Motors::run(100,120);
-        delay(300);
         Motors::stop();
         delay(400);
-
         Serial.end();
     }
 

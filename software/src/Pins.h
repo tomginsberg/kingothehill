@@ -43,6 +43,8 @@
 
 #define RESET_CONTROL 2
 
+#define PUSHER_SERVO 4
+
 //// Analog Pins
 #define L_CLAW_DETECT A0
 #define R_CLAW_DETECT A1
@@ -80,9 +82,11 @@ void initializePins();
         pinMode( PLATFORM_2, OUTPUT );
         pinMode( STEPPER_1, OUTPUT );
         pinMode( STEPPER_2, OUTPUT );
+        pinMode( PUSHER_SERVO, OUTPUT );
 
         pinMode( L_CLAW_DETECT, INPUT_PULLUP );
         pinMode( R_CLAW_DETECT, INPUT_PULLUP );
-        pinMode( RESET_CONTROL, OUTPUT);
+
+        pinMode( RESET_CONTROL, OUTPUT );
     }
 #endif

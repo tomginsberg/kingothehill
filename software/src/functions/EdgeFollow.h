@@ -6,10 +6,10 @@
 #include "Motors.h"
 #include "../GlobalVariables.h"
 
-#define KP_EDGE ((float) 0.6)
-#define KD_EDGE ((float) 0.7)
+#define KP_EDGE ((float) 0.45)
+#define KD_EDGE ((float) 0.1)
 
-#define MAX_SPEED_EDGE 255
+#define MAX_SPEED_EDGE 155
 
 class EdgeFollower {
     int16_t error = 0;
@@ -20,7 +20,7 @@ class EdgeFollower {
         uint8_t lastRSpeed = 0;
         
         void poll( int speed ) {
-            int16_t EDGE_SETPOINT = RIGHT_EDGE_BASELINE + 190;
+            int16_t EDGE_SETPOINT = RIGHT_EDGE_BASELINE + 140;
 
             int16_t rawVal = analogRead( TF_EDGE_RIGHT );
             int16_t newError = rawVal - EDGE_SETPOINT;

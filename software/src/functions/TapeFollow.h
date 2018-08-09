@@ -34,6 +34,7 @@ class TapeFollower {
         float kiTape = 0.001;
 
         uint16_t MAX_SPEED = 255;
+        uint16_t minSpeed = 20;
 
         bool scanning = false;
         uint64_t lastWriteTime = 0;
@@ -71,8 +72,8 @@ class TapeFollower {
                         constrain( kdTape * errorDerivative, -DMAX, DMAX ) +
                         constrain( kiTape * errorIntegral, -IMAX, IMAX ) );
                     
-                    uint8_t rightMotorSpeed = constrain( constrain( speed + motorCorrection, 20, MAX_SPEED ), lastSpeed[0] - DEADBAND, lastSpeed[0] + DEADBAND );
-                    uint8_t leftMotorSpeed  = constrain( constrain( speed - motorCorrection, 20, MAX_SPEED ), lastSpeed[1] - DEADBAND, lastSpeed[1] + DEADBAND );
+                    uint8_t rightMotorSpeed = constrain( constrain( speed + motorCorrection, minSpeed, MAX_SPEED ), lastSpeed[0] - DEADBAND, lastSpeed[0] + DEADBAND );
+                    uint8_t leftMotorSpeed  = constrain( constrain( speed - motorCorrection, minSpeed, MAX_SPEED ), lastSpeed[1] - DEADBAND, lastSpeed[1] + DEADBAND );
                     
                     lastSpeed[0] = rightMotorSpeed;
                     lastSpeed[1] = leftMotorSpeed;
@@ -85,19 +86,44 @@ class TapeFollower {
         }
 
         static uint16_t readFarLeft() {
-            return map( analogRead( TF_FAR_LEFT ), 80, 750, 50, 500 );
+            return map( analogRead( TF_FAR_LEFT ), 75, 589, 50, 500 );
         } 
 
         static uint16_t readCloseLeft() {
-            return analogRead( TF_CLOSE_LEFT );
+            return map( analogRead( TF_CLOSE_LEFT ), 71, 426, 50, 500 );
         }
 
         static uint16_t readCloseRight() {
-            return analogRead( TF_CLOSE_RIGHT );
+            return map( analogRead( TF_CLOSE_RIGHT ), 71, 456, 50, 500 );
         }
 
         static uint16_t readFarRight() {
-            return map( analogRead( TF_FAR_RIGHT ), 100, 400, 50, 500 );
+            return map( analogRead( TF_FAR_RIGHT ), 115, 392, 50, 500 );
+        }
+
+        static bool onBlack( uint8_t sensorVal ) {
+            switch( sensorVal ) {
+                case TF_FAR_LEFT: 
+                    {
+                        return readFarLeft() > 330;
+                        break;
+                    }
+                case TF_CLOSE_LEFT: 
+                    {
+                        return readCloseLeft() > 330;
+                        break;
+                    }
+                case TF_CLOSE_RIGHT: 
+                    {
+                        return readCloseRight() > 330;
+                        break;
+                    }
+                case TF_FAR_RIGHT: 
+                    {
+                        return readFarRight() > 330;
+                        break;
+                    }
+            }
         }
 
         void disableOutsideSensors() {

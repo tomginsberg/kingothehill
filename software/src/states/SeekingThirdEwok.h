@@ -10,11 +10,11 @@ class S_SeekingThirdEwok: public State {
     uint64_t startTime;
     uint8_t state = 10;
     bool droppedClaw = false;
-    const uint16_t DELAY_TIME = 5500;
+    const uint16_t DELAY_TIME = 7000;
 
     void onStart() { 
         Serial.begin( 9600 );
-        tf.kpTape = 0.38;
+        tf.kpTape = 0.21;
         startTime = millis();
     }
 
@@ -22,7 +22,7 @@ class S_SeekingThirdEwok: public State {
         switch (state){
             case 10:
                 {
-                    tf.poll( 125 );
+                    tf.poll( 110 );
                     if( millis() - startTime > DELAY_TIME ) {
                         Motors::hardStop();
                         delay( 300 );
@@ -30,19 +30,6 @@ class S_SeekingThirdEwok: public State {
                     }
                     break;
 
-                }
-            case 20:
-                {
-                    if (analogRead( TF_CLOSE_LEFT ) > 150){
-                        Motors::stop();
-                        delay( 100 );
-                        state = 30;
-                        tf.kpTape=0.29;
-                    }
-                    else{
-                        Motors::run( 50, 110 );
-                    }
-                    break;
                 }
 
             case 30:
@@ -93,7 +80,7 @@ class S_SeekingThirdEwok: public State {
                 Serial.write( DETACH_L_CLAW );
                 Serial.flush();
                 Serial.end();
-                Motors::run(-100,-110);
+                Motors::run( -100, -110 );
                 delay(600);
                 Motors::stop();
                 state=70;

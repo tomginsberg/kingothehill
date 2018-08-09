@@ -5,6 +5,14 @@
 #include "../functions/TapeFollow.h"
 #include "../SerialIDs.h"
 
+#ifdef _LEFT_
+    #define FORWARD_TIME 1250
+#endif
+
+#ifdef _RIGHT_
+    #define FORWARD_TIME 1400
+#endif
+
 class S_CrossBridge2: public State {
     TapeFollower tf;
     uint64_t startTime;
@@ -13,11 +21,11 @@ class S_CrossBridge2: public State {
     void onStart() {
         delay(100);
         Motors::run( -100, -110 );
-        delay( 320 );
+        delay( 320 ); 
         Motors::run( 110 );
         delay( 500 );
         
-        tf.kpTape = 0.28;
+        tf.kpTape = 0.16;
         tf.disableOutsideSensors();
     }
 
@@ -25,7 +33,7 @@ class S_CrossBridge2: public State {
         switch ( state ) {
             case 10: {
                 Motors::run( 10, 100 );
-                if ( analogRead( TF_CLOSE_LEFT ) > 150 || analogRead( TF_CLOSE_RIGHT ) > 150 ) {
+                if ( TapeFollower::onBlack( TF_CLOSE_RIGHT ) ) {
                     state = 20;
                     startTime = millis();
                     Motors::stop();
@@ -34,7 +42,7 @@ class S_CrossBridge2: public State {
                 break;
             }
             case 20: {
-                tf.poll( 140 );
+                tf.poll( 170 );
                 if ( millis() - startTime > 1600 ) {
                     state = 30;
                 }
@@ -44,8 +52,8 @@ class S_CrossBridge2: public State {
     }
     
     void onEnd() {
-        Motors::run( 120, 140 );
-        delay( 1450 ); 
+        Motors::run( 110, 140 );
+        delay( FORWARD_TIME ); 
         Motors::stop();
         Serial.begin( 9600 );
         Serial.write( INIT_L_CLAW );

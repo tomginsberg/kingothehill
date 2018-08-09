@@ -5,6 +5,10 @@
 #include "../Pins.h"
 
 class S_SeekingChewbacca: public State {
+    void onStart() {
+        Motors::run( 130,140 );
+    }
+    
     void onEnd() {
         Motors::stop();
     }

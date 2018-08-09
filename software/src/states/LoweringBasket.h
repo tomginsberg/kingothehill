@@ -23,6 +23,8 @@ class S_LoweringBasket: public State {
             case 10: 
             {
                 Serial.write( LOWER_BASKET );
+                delay( 3000 );
+                Motors::stop();
                 state = 20;
                 break;
             }

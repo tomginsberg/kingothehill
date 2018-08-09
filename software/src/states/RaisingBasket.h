@@ -6,12 +6,12 @@
 
 class S_RaisingBasket: public State {
     void onStart() { 
-        Motors::run( -100 );
+        Motors::run( -100,-105 );
         Serial.begin( 9600 );
         Serial.write( RAISE_BASKET_MASTER );
-        delay( 400 );
+        delay( 600 );
         Motors::stop();
-        delay( 9200 );
+        delay( 6900 );
     }
 
     bool transitionCondition() {
