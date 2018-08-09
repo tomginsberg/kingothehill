@@ -9,7 +9,7 @@
 #endif
 
 #ifdef _LEFT_
-    #define PIVOT_TIME 1130
+    #define PIVOT_TIME 1050
 #endif
 
 class S_FindingSecondGap: public State {
